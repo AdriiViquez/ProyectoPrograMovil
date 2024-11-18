@@ -362,7 +362,7 @@ class _DetailsCollectionWidgetState extends State<DetailsCollectionWidget> {
                                                           onPressed: () async {
                                                             context.safePop();
                                                           },
-                                                          text: 'Volver',
+                                                          text: 'Back',
                                                           options:
                                                               FFButtonOptions(
                                                             width: MediaQuery

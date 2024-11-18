@@ -571,17 +571,6 @@ class _ManageAccountWidgetState extends State<ManageAccountWidget> {
                                     letterSpacing: 0.0,
                                   ),
                             ),
-                            Text(
-                              'Delete your Account',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Roboto',
-                                    color: FlutterFlowTheme.of(context).error,
-                                    fontSize: 14.0,
-                                    letterSpacing: 0.0,
-                                  ),
-                            ),
                           ],
                         ),
                       ),

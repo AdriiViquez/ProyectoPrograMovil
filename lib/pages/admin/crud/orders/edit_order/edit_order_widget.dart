@@ -1156,7 +1156,11 @@ class _EditOrderWidgetState extends State<EditOrderWidget> {
                                                   _model.dropDownValue ??=
                                                       'Pending',
                                                 ),
-                                                options: const ['Ready', 'Pending'],
+                                                options: const [
+                                                  'Ready',
+                                                  'Pending',
+                                                  'Cancel'
+                                                ],
                                                 onChanged: (val) =>
                                                     safeSetState(() => _model
                                                         .dropDownValue = val),
@@ -1226,7 +1230,7 @@ class _EditOrderWidgetState extends State<EditOrderWidget> {
                                                               0.0, 0.0),
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .accent1,
+                                                      .secondary,
                                                   textStyle: FlutterFlowTheme
                                                           .of(context)
                                                       .displayLarge

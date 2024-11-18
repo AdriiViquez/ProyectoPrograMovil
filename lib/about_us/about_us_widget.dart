@@ -216,12 +216,12 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                   Flexible(
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(10.0, 20.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 0.0, 0.0),
                       child: Text(
                         'From collectible figures, themed clothing and accessories, to posters, backpacks and stationery, you\'ll find everything you need to show your passion for anime here. Each product has been carefully selected to guarantee quality and authenticity, because we know that every detail counts for true fans.\n\nOur goal is to be more than a store: we want to be a meeting point for a community that shares the same love for the stories, worlds, and characters that make anime so special.',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
-                              fontSize: 15.0,
+                              fontSize: 14.0,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w600,
                             ),

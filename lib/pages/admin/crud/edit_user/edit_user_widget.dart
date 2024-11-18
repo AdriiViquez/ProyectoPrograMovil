@@ -1227,7 +1227,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                                                               0.0, 0.0),
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .accent1,
+                                                      .secondary,
                                                   textStyle: FlutterFlowTheme
                                                           .of(context)
                                                       .displayLarge

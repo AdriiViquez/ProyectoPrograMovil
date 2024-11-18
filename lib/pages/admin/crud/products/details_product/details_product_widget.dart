@@ -430,7 +430,7 @@ class _DetailsProductWidgetState extends State<DetailsProductWidget> {
                                                         onPressed: () async {
                                                           context.safePop();
                                                         },
-                                                        text: 'Volver',
+                                                        text: 'Back',
                                                         options:
                                                             FFButtonOptions(
                                                           width:

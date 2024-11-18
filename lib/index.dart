@@ -13,8 +13,7 @@ export '/pages/admin/collections_admin/collections_admin_widget.dart'
     show CollectionsAdminWidget;
 export '/pages/admin/crud/users/create_user/create_user_widget.dart'
     show CreateUserWidget;
-export '/pages/admin/crud/users/edit_user/edit_user_widget.dart'
-    show EditUserWidget;
+export '/pages/admin/crud/edit_user/edit_user_widget.dart' show EditUserWidget;
 export '/pages/admin/crud/providers/add_provider/add_provider_widget.dart'
     show AddProviderWidget;
 export '/pages/admin/crud/collections/add_collection/add_collection_widget.dart'
