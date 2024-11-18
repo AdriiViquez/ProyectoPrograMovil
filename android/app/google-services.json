@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "1023682042323",
+    "project_id": "ppme-gc-b5a45",
+    "storage_bucket": "ppme-gc-b5a45.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1023682042323:android:fa47623f629597a0957726",
+        "android_client_info": {
+          "package_name": "com.geekco.ppmegc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1023682042323-7a0c7s3elb7sjukv0dflgk8hoviblv88.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.geekco.ppmegc",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "1023682042323-u2m1mkmslm4kib22kah1idho5j299ot6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgNXLj_5D7FJre8VDYyulibllZc1oFdtA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1023682042323-u2m1mkmslm4kib22kah1idho5j299ot6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1023682042323-4mg4etut0t0v3u18erbs7js62f3e0c1l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.geekco.ppmegc"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1023682042323:android:e2e4fa8a7032c8c5957726",
+        "android_client_info": {
+          "package_name": "com.mycompany.ppmegc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1023682042323-jvnap9jnlrfnqee6ibr403orrc084cjn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.ppmegc",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "1023682042323-u2m1mkmslm4kib22kah1idho5j299ot6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgNXLj_5D7FJre8VDYyulibllZc1oFdtA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1023682042323-u2m1mkmslm4kib22kah1idho5j299ot6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1023682042323-4mg4etut0t0v3u18erbs7js62f3e0c1l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.geekco.ppmegc"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
