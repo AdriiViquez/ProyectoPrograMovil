@@ -5,7 +5,6 @@ import '../auth/firebase_auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'schema/util/firestore_util.dart';
 
-import 'schema/users_record.dart';
 import 'schema/category_record.dart';
 import 'schema/collection_record.dart';
 import 'schema/provider_record.dart';
@@ -16,6 +15,7 @@ import 'schema/role_record.dart';
 import 'schema/invoice_record.dart';
 import 'schema/invoice_detail_record.dart';
 import 'schema/sales_record.dart';
+import 'schema/users_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart' hide Order;
@@ -24,7 +24,6 @@ export 'schema/index.dart';
 export 'schema/util/firestore_util.dart';
 export 'schema/util/schema_util.dart';
 
-export 'schema/users_record.dart';
 export 'schema/category_record.dart';
 export 'schema/collection_record.dart';
 export 'schema/provider_record.dart';
@@ -35,43 +34,7 @@ export 'schema/role_record.dart';
 export 'schema/invoice_record.dart';
 export 'schema/invoice_detail_record.dart';
 export 'schema/sales_record.dart';
-
-/// Functions to query UsersRecords (as a Stream and as a Future).
-Future<int> queryUsersRecordCount({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-}) =>
-    queryCollectionCount(
-      UsersRecord.collection,
-      queryBuilder: queryBuilder,
-      limit: limit,
-    );
-
-Stream<List<UsersRecord>> queryUsersRecord({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollection(
-      UsersRecord.collection,
-      UsersRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<List<UsersRecord>> queryUsersRecordOnce({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollectionOnce(
-      UsersRecord.collection,
-      UsersRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
+export 'schema/users_record.dart';
 
 /// Functions to query CategoryRecords (as a Stream and as a Future).
 Future<int> queryCategoryRecordCount({
@@ -438,6 +401,43 @@ Future<List<SalesRecord>> querySalesRecordOnce({
     queryCollectionOnce(
       SalesRecord.collection,
       SalesRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query UsersRecords (as a Stream and as a Future).
+Future<int> queryUsersRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      UsersRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<UsersRecord>> queryUsersRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      UsersRecord.collection,
+      UsersRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<UsersRecord>> queryUsersRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      UsersRecord.collection,
+      UsersRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,

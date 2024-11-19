@@ -447,8 +447,8 @@ class _ProductsAdminWidgetState extends State<ProductsAdminWidget> {
                   children: [
                     Expanded(
                       child: FFButtonWidget(
-                        onPressed: () {
-                          print('Button pressed ...');
+                        onPressed: () async {
+                          context.pushNamed('AddProduct');
                         },
                         text: '',
                         icon: const Icon(

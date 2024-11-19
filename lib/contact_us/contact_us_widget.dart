@@ -111,10 +111,19 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Icon(
-                          Icons.menu_sharp,
-                          color: FlutterFlowTheme.of(context).primaryText,
-                          size: 30.0,
+                        InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            scaffoldKey.currentState!.openDrawer();
+                          },
+                          child: Icon(
+                            Icons.menu_sharp,
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            size: 30.0,
+                          ),
                         ),
                       ],
                     ),

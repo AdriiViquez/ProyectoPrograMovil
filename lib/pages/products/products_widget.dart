@@ -157,11 +157,20 @@ class _ProductsWidgetState extends State<ProductsWidget>
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.all(10.0),
-                                        child: Icon(
-                                          Icons.close_sharp,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          size: 30.0,
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Icon(
+                                            Icons.close_sharp,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            size: 30.0,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -210,16 +219,30 @@ class _ProductsWidgetState extends State<ProductsWidget>
                                                   padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 10.0, 0.0, 0.0),
-                                                  child: Text(
-                                                    'Profile',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          fontSize: 20.0,
-                                                          letterSpacing: 0.0,
-                                                        ),
+                                                  child: InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      context.pushNamed(
+                                                          'UserProfile');
+                                                    },
+                                                    child: Text(
+                                                      'Profile',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Inter',
+                                                            fontSize: 20.0,
+                                                            letterSpacing: 0.0,
+                                                          ),
+                                                    ),
                                                   ),
                                                 ),
                                               ],
@@ -235,16 +258,26 @@ class _ProductsWidgetState extends State<ProductsWidget>
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Text(
-                                              'Home',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        fontSize: 20.0,
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                            InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                context.pushNamed('Home');
+                                              },
+                                              child: Text(
+                                                'Home',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          fontSize: 20.0,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -257,16 +290,26 @@ class _ProductsWidgetState extends State<ProductsWidget>
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Text(
-                                              'Products',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        fontSize: 20.0,
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                            InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                context.pushNamed('Products');
+                                              },
+                                              child: Text(
+                                                'Products',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          fontSize: 20.0,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -279,16 +322,27 @@ class _ProductsWidgetState extends State<ProductsWidget>
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Text(
-                                              'Collections',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        fontSize: 20.0,
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                            InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                context
+                                                    .pushNamed('Collections');
+                                              },
+                                              child: Text(
+                                                'Collections',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          fontSize: 20.0,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -301,16 +355,26 @@ class _ProductsWidgetState extends State<ProductsWidget>
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Text(
-                                              'Contact',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        fontSize: 20.0,
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                            InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                context.pushNamed('ContactUs');
+                                              },
+                                              child: Text(
+                                                'Contact',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          fontSize: 20.0,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -323,16 +387,26 @@ class _ProductsWidgetState extends State<ProductsWidget>
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Text(
-                                              'About Us',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        fontSize: 20.0,
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                            InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                context.pushNamed('AboutUs');
+                                              },
+                                              child: Text(
+                                                'About Us',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          fontSize: 20.0,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -345,16 +419,26 @@ class _ProductsWidgetState extends State<ProductsWidget>
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Text(
-                                              'Sign In',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        fontSize: 20.0,
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                            InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                context.pushNamed('SignIn');
+                                              },
+                                              child: Text(
+                                                'Sign In',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          fontSize: 20.0,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -367,16 +451,26 @@ class _ProductsWidgetState extends State<ProductsWidget>
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Text(
-                                              'Sign Up',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        fontSize: 20.0,
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                            InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                context.pushNamed('SignUp');
+                                              },
+                                              child: Text(
+                                                'Sign Up',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          fontSize: 20.0,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -568,124 +662,116 @@ class _ProductsWidgetState extends State<ProductsWidget>
                     ],
                   ),
                 ),
-                if (responsiveVisibility(
-                  context: context,
-                  tablet: false,
-                  tabletLandscape: false,
-                  desktop: false,
-                ))
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 10.0, 0.0),
-                            child: SizedBox(
-                              width: 200.0,
-                              child: TextFormField(
-                                controller: _model.txtSearchTextController,
-                                focusNode: _model.txtSearchFocusNode,
-                                autofocus: false,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  isDense: true,
-                                  labelStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
-                                        fontFamily: 'Roboto',
-                                        letterSpacing: 0.0,
-                                      ),
-                                  hintText: 'Search',
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
-                                        fontFamily: 'Roboto',
-                                        letterSpacing: 0.0,
-                                      ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  filled: true,
-                                  fillColor:
-                                      FlutterFlowTheme.of(context).accent4,
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 10.0, 0.0),
+                          child: SizedBox(
+                            width: 200.0,
+                            child: TextFormField(
+                              controller: _model.txtSearchTextController,
+                              focusNode: _model.txtSearchFocusNode,
+                              autofocus: false,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                isDense: true,
+                                labelStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
                                     .override(
                                       fontFamily: 'Roboto',
                                       letterSpacing: 0.0,
                                     ),
-                                cursorColor:
-                                    FlutterFlowTheme.of(context).primaryText,
-                                validator: _model
-                                    .txtSearchTextControllerValidator
-                                    .asValidator(context),
+                                hintText: 'Search',
+                                hintStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .override(
+                                      fontFamily: 'Roboto',
+                                      letterSpacing: 0.0,
+                                    ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                filled: true,
+                                fillColor: FlutterFlowTheme.of(context).accent4,
                               ),
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: FFButtonWidget(
-                            onPressed: () {
-                              print('Button pressed ...');
-                            },
-                            text: '',
-                            icon: const Icon(
-                              Icons.search,
-                              size: 30.0,
-                            ),
-                            options: FFButtonOptions(
-                              height: 40.0,
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 0.0, 16.0, 0.0),
-                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                  5.0, 0.0, 0.0, 0.0),
-                              color: FlutterFlowTheme.of(context).secondary,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .titleSmall
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
                                   .override(
                                     fontFamily: 'Roboto',
-                                    color: Colors.white,
                                     letterSpacing: 0.0,
                                   ),
-                              elevation: 0.0,
-                              borderRadius: BorderRadius.circular(8.0),
+                              cursorColor:
+                                  FlutterFlowTheme.of(context).primaryText,
+                              validator: _model.txtSearchTextControllerValidator
+                                  .asValidator(context),
                             ),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                      Align(
+                        alignment: const AlignmentDirectional(0.0, 0.0),
+                        child: FFButtonWidget(
+                          onPressed: () {
+                            print('Button pressed ...');
+                          },
+                          text: '',
+                          icon: const Icon(
+                            Icons.search,
+                            size: 30.0,
+                          ),
+                          options: FFButtonOptions(
+                            height: 40.0,
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
+                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                5.0, 0.0, 0.0, 0.0),
+                            color: FlutterFlowTheme.of(context).secondary,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'Roboto',
+                                  color: Colors.white,
+                                  letterSpacing: 0.0,
+                                ),
+                            elevation: 0.0,
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
+                ),
                 Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [

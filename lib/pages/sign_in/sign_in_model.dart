@@ -6,42 +6,26 @@ class SignInModel extends FlutterFlowModel<SignInWidget> {
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for txtEmail widget.
-  FocusNode? txtEmailFocusNode1;
-  TextEditingController? txtEmailTextController1;
-  String? Function(BuildContext, String?)? txtEmailTextController1Validator;
+  FocusNode? txtEmailFocusNode;
+  TextEditingController? txtEmailTextController;
+  String? Function(BuildContext, String?)? txtEmailTextControllerValidator;
   // State field(s) for txtPassword widget.
-  FocusNode? txtPasswordFocusNode1;
-  TextEditingController? txtPasswordTextController1;
-  late bool txtPasswordVisibility1;
-  String? Function(BuildContext, String?)? txtPasswordTextController1Validator;
-  // State field(s) for txtEmail widget.
-  FocusNode? txtEmailFocusNode2;
-  TextEditingController? txtEmailTextController2;
-  String? Function(BuildContext, String?)? txtEmailTextController2Validator;
-  // State field(s) for txtPassword widget.
-  FocusNode? txtPasswordFocusNode2;
-  TextEditingController? txtPasswordTextController2;
-  late bool txtPasswordVisibility2;
-  String? Function(BuildContext, String?)? txtPasswordTextController2Validator;
+  FocusNode? txtPasswordFocusNode;
+  TextEditingController? txtPasswordTextController;
+  late bool txtPasswordVisibility;
+  String? Function(BuildContext, String?)? txtPasswordTextControllerValidator;
 
   @override
   void initState(BuildContext context) {
-    txtPasswordVisibility1 = false;
-    txtPasswordVisibility2 = false;
+    txtPasswordVisibility = false;
   }
 
   @override
   void dispose() {
-    txtEmailFocusNode1?.dispose();
-    txtEmailTextController1?.dispose();
+    txtEmailFocusNode?.dispose();
+    txtEmailTextController?.dispose();
 
-    txtPasswordFocusNode1?.dispose();
-    txtPasswordTextController1?.dispose();
-
-    txtEmailFocusNode2?.dispose();
-    txtEmailTextController2?.dispose();
-
-    txtPasswordFocusNode2?.dispose();
-    txtPasswordTextController2?.dispose();
+    txtPasswordFocusNode?.dispose();
+    txtPasswordTextController?.dispose();
   }
 }

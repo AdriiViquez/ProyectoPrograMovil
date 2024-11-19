@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -62,8 +61,8 @@ class UsersRecord extends FirestoreRecord {
   bool hasSecondLastName() => _secondLastName != null;
 
   // "roles" field.
-  List<DocumentReference>? _roles;
-  List<DocumentReference> get roles => _roles ?? const [];
+  DocumentReference? _roles;
+  DocumentReference? get roles => _roles;
   bool hasRoles() => _roles != null;
 
   void _initializeFields() {
@@ -76,7 +75,7 @@ class UsersRecord extends FirestoreRecord {
     _address = snapshotData['address'] as String?;
     _firstLastName = snapshotData['firstLastName'] as String?;
     _secondLastName = snapshotData['secondLastName'] as String?;
-    _roles = getDataList(snapshotData['roles']);
+    _roles = snapshotData['roles'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
@@ -122,6 +121,7 @@ Map<String, dynamic> createUsersRecordData({
   String? address,
   String? firstLastName,
   String? secondLastName,
+  DocumentReference? roles,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -134,6 +134,7 @@ Map<String, dynamic> createUsersRecordData({
       'address': address,
       'firstLastName': firstLastName,
       'secondLastName': secondLastName,
+      'roles': roles,
     }.withoutNulls,
   );
 
@@ -145,7 +146,6 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
 
   @override
   bool equals(UsersRecord? e1, UsersRecord? e2) {
-    const listEquality = ListEquality();
     return e1?.email == e2?.email &&
         e1?.displayName == e2?.displayName &&
         e1?.photoUrl == e2?.photoUrl &&
@@ -155,7 +155,7 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.address == e2?.address &&
         e1?.firstLastName == e2?.firstLastName &&
         e1?.secondLastName == e2?.secondLastName &&
-        listEquality.equals(e1?.roles, e2?.roles);
+        e1?.roles == e2?.roles;
   }
 
   @override
