@@ -142,8 +142,6 @@ class EditProviderModel extends FlutterFlowModel<EditProviderWidget> {
   // State field(s) for dprProviderStatus widget.
   String? dprProviderStatusValue;
   FormFieldController<String>? dprProviderStatusValueController;
-  // State field(s) for Switch widget.
-  bool? switchValue;
 
   @override
   void initState(BuildContext context) {
