@@ -9,12 +9,6 @@ class ProductsModel extends FlutterFlowModel<ProductsWidget> {
   FocusNode? txtSearchFocusNode;
   TextEditingController? txtSearchTextController;
   String? Function(BuildContext, String?)? txtSearchTextControllerValidator;
-  // State field(s) for RatingBar widget.
-  double? ratingBarValue1;
-  // State field(s) for RatingBar widget.
-  double? ratingBarValue2;
-  // State field(s) for RatingBar widget.
-  double? ratingBarValue3;
 
   @override
   void initState(BuildContext context) {}

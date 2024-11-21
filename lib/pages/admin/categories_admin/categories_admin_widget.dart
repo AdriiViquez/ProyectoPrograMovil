@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -123,16 +124,20 @@ class _CategoriesAdminWidgetState extends State<CategoriesAdminWidget> {
                                             Column(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
-                                                Container(
-                                                  width: 70.0,
-                                                  height: 70.0,
-                                                  clipBehavior: Clip.antiAlias,
-                                                  decoration: const BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                  child: Image.network(
-                                                    'https://picsum.photos/seed/373/600',
-                                                    fit: BoxFit.cover,
+                                                AuthUserStreamWidget(
+                                                  builder: (context) =>
+                                                      Container(
+                                                    width: 70.0,
+                                                    height: 70.0,
+                                                    clipBehavior:
+                                                        Clip.antiAlias,
+                                                    decoration: const BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                    child: Image.network(
+                                                      currentUserPhoto,
+                                                      fit: BoxFit.cover,
+                                                    ),
                                                   ),
                                                 ),
                                                 Padding(
@@ -751,9 +756,7 @@ class _CategoriesAdminWidgetState extends State<CategoriesAdminWidget> {
                                       icon: Icons.delete_outline_rounded,
                                       onPressed: (_) async {
                                         await listViewCategoryRecord.reference
-                                            .update(createCategoryRecordData(
-                                          status: 'Inactive',
-                                        ));
+                                            .update(createCategoryRecordData());
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                           SnackBar(

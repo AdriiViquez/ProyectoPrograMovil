@@ -13,15 +13,15 @@ class SignUpModel extends FlutterFlowModel<SignUpWidget> {
   FocusNode? txtEmailFocusNode;
   TextEditingController? txtEmailTextController;
   String? Function(BuildContext, String?)? txtEmailTextControllerValidator;
+  // State field(s) for txt_LatName widget.
+  FocusNode? txtLatNameFocusNode;
+  TextEditingController? txtLatNameTextController;
+  String? Function(BuildContext, String?)? txtLatNameTextControllerValidator;
   // State field(s) for txtSecondLastName widget.
   FocusNode? txtSecondLastNameFocusNode;
   TextEditingController? txtSecondLastNameTextController;
   String? Function(BuildContext, String?)?
       txtSecondLastNameTextControllerValidator;
-  // State field(s) for txt_LatName widget.
-  FocusNode? txtLatNameFocusNode;
-  TextEditingController? txtLatNameTextController;
-  String? Function(BuildContext, String?)? txtLatNameTextControllerValidator;
   // State field(s) for txtPhone widget.
   FocusNode? txtPhoneFocusNode;
   TextEditingController? txtPhoneTextController;
@@ -56,11 +56,11 @@ class SignUpModel extends FlutterFlowModel<SignUpWidget> {
     txtEmailFocusNode?.dispose();
     txtEmailTextController?.dispose();
 
-    txtSecondLastNameFocusNode?.dispose();
-    txtSecondLastNameTextController?.dispose();
-
     txtLatNameFocusNode?.dispose();
     txtLatNameTextController?.dispose();
+
+    txtSecondLastNameFocusNode?.dispose();
+    txtSecondLastNameTextController?.dispose();
 
     txtPhoneFocusNode?.dispose();
     txtPhoneTextController?.dispose();
