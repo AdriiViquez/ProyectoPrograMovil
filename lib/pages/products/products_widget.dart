@@ -1,9 +1,9 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
+import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'products_model.dart';
@@ -31,7 +31,6 @@ class _ProductsWidgetState extends State<ProductsWidget>
     _model = createModel(context, () => ProductsModel());
 
     _model.txtSearchTextController ??= TextEditingController();
-    _model.txtSearchFocusNode ??= FocusNode();
 
     animationsMap.addAll({
       'containerOnPageLoadAnimation': AnimationInfo(
@@ -650,100 +649,160 @@ class _ProductsWidgetState extends State<ProductsWidget>
                         child: Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 10.0, 0.0),
-                          child: SizedBox(
-                            width: 200.0,
-                            child: TextFormField(
-                              controller: _model.txtSearchTextController,
-                              focusNode: _model.txtSearchFocusNode,
-                              autofocus: false,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                isDense: true,
-                                labelStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Roboto',
-                                      letterSpacing: 0.0,
+                          child: StreamBuilder<List<ProductRecord>>(
+                            stream: queryProductRecord(),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50.0,
+                                    height: 50.0,
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        FlutterFlowTheme.of(context).primary,
+                                      ),
                                     ),
-                                hintText: 'Search',
-                                hintStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Roboto',
-                                      letterSpacing: 0.0,
-                                    ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(8.0),
+                                );
+                              }
+                              List<ProductRecord> txtSearchProductRecordList =
+                                  snapshot.data!;
+
+                              return SizedBox(
+                                width: 200.0,
+                                child: Autocomplete<String>(
+                                  initialValue: const TextEditingValue(),
+                                  optionsBuilder: (textEditingValue) {
+                                    if (textEditingValue.text == '') {
+                                      return const Iterable<String>.empty();
+                                    }
+                                    return txtSearchProductRecordList
+                                        .map((e) => e.name)
+                                        .toList()
+                                        .where((option) {
+                                      final lowercaseOption =
+                                          option.toLowerCase();
+                                      return lowercaseOption.contains(
+                                          textEditingValue.text.toLowerCase());
+                                    });
+                                  },
+                                  optionsViewBuilder:
+                                      (context, onSelected, options) {
+                                    return AutocompleteOptionsList(
+                                      textFieldKey: _model.txtSearchKey,
+                                      textController:
+                                          _model.txtSearchTextController!,
+                                      options: options.toList(),
+                                      onSelected: onSelected,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            letterSpacing: 0.0,
+                                          ),
+                                      textHighlightStyle: const TextStyle(),
+                                      elevation: 4.0,
+                                      optionBackgroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                      optionHighlightColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                      maxHeight: 200.0,
+                                    );
+                                  },
+                                  onSelected: (String selection) {
+                                    safeSetState(() => _model
+                                        .txtSearchSelectedOption = selection);
+                                    FocusScope.of(context).unfocus();
+                                  },
+                                  fieldViewBuilder: (
+                                    context,
+                                    textEditingController,
+                                    focusNode,
+                                    onEditingComplete,
+                                  ) {
+                                    _model.txtSearchFocusNode = focusNode;
+
+                                    _model.txtSearchTextController =
+                                        textEditingController;
+                                    return TextFormField(
+                                      key: _model.txtSearchKey,
+                                      controller: textEditingController,
+                                      focusNode: focusNode,
+                                      onEditingComplete: onEditingComplete,
+                                      autofocus: false,
+                                      obscureText: false,
+                                      decoration: InputDecoration(
+                                        isDense: true,
+                                        labelStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              fontFamily: 'Roboto',
+                                              letterSpacing: 0.0,
+                                            ),
+                                        hintText: 'Search',
+                                        hintStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              fontFamily: 'Roboto',
+                                              letterSpacing: 0.0,
+                                            ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                            color: Color(0x00000000),
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                            color: Color(0x00000000),
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        filled: true,
+                                        fillColor: FlutterFlowTheme.of(context)
+                                            .accent4,
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Roboto',
+                                            letterSpacing: 0.0,
+                                          ),
+                                      cursorColor: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      validator: _model
+                                          .txtSearchTextControllerValidator
+                                          .asValidator(context),
+                                    );
+                                  },
                                 ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                filled: true,
-                                fillColor: FlutterFlowTheme.of(context).accent4,
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Roboto',
-                                    letterSpacing: 0.0,
-                                  ),
-                              cursorColor:
-                                  FlutterFlowTheme.of(context).primaryText,
-                              validator: _model.txtSearchTextControllerValidator
-                                  .asValidator(context),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Align(
-                        alignment: const AlignmentDirectional(0.0, 0.0),
-                        child: FFButtonWidget(
-                          onPressed: () {
-                            print('BtnSearch pressed ...');
-                          },
-                          text: '',
-                          icon: const Icon(
-                            Icons.search,
-                            size: 30.0,
-                          ),
-                          options: FFButtonOptions(
-                            height: 40.0,
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                16.0, 0.0, 16.0, 0.0),
-                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                5.0, 0.0, 0.0, 0.0),
-                            color: FlutterFlowTheme.of(context).secondary,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
-                                  fontFamily: 'Roboto',
-                                  color: Colors.white,
-                                  letterSpacing: 0.0,
-                                ),
-                            elevation: 0.0,
-                            borderRadius: BorderRadius.circular(8.0),
+                              );
+                            },
                           ),
                         ),
                       ),
@@ -754,7 +813,14 @@ class _ProductsWidgetState extends State<ProductsWidget>
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     StreamBuilder<List<ProductRecord>>(
-                      stream: queryProductRecord(),
+                      stream: queryProductRecord(
+                        queryBuilder: (productRecord) => productRecord.where(
+                          'name',
+                          isEqualTo: _model.txtSearchTextController.text != ''
+                              ? _model.txtSearchTextController.text
+                              : null,
+                        ),
+                      ),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
                         if (!snapshot.hasData) {

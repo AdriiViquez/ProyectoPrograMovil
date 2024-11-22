@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -27,7 +28,6 @@ class _CollectionsAdminWidgetState extends State<CollectionsAdminWidget> {
     _model = createModel(context, () => CollectionsAdminModel());
 
     _model.textController ??= TextEditingController();
-    _model.textFieldFocusNode ??= FocusNode();
   }
 
   @override
@@ -595,99 +595,158 @@ class _CollectionsAdminWidgetState extends State<CollectionsAdminWidget> {
                       child: Padding(
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(1.0, 0.0, 1.0, 0.0),
-                        child: SizedBox(
-                          width: 200.0,
-                          child: TextFormField(
-                            controller: _model.textController,
-                            focusNode: _model.textFieldFocusNode,
-                            autofocus: false,
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              isDense: true,
-                              labelStyle: FlutterFlowTheme.of(context)
-                                  .labelMedium
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0.0,
+                        child: StreamBuilder<List<CollectionRecord>>(
+                          stream: queryCollectionRecord(),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 50.0,
+                                  height: 50.0,
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      FlutterFlowTheme.of(context).primary,
+                                    ),
                                   ),
-                              hintText: 'Search Collection',
-                              hintStyle: FlutterFlowTheme.of(context)
-                                  .labelMedium
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0.0,
-                                  ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                  color: Color(0x00000000),
-                                  width: 1.0,
                                 ),
-                                borderRadius: BorderRadius.circular(8.0),
+                              );
+                            }
+                            List<CollectionRecord>
+                                textFieldCollectionRecordList = snapshot.data!;
+
+                            return SizedBox(
+                              width: 200.0,
+                              child: Autocomplete<String>(
+                                initialValue: const TextEditingValue(),
+                                optionsBuilder: (textEditingValue) {
+                                  if (textEditingValue.text == '') {
+                                    return const Iterable<String>.empty();
+                                  }
+                                  return textFieldCollectionRecordList
+                                      .map((e) => e.name)
+                                      .toList()
+                                      .where((option) {
+                                    final lowercaseOption =
+                                        option.toLowerCase();
+                                    return lowercaseOption.contains(
+                                        textEditingValue.text.toLowerCase());
+                                  });
+                                },
+                                optionsViewBuilder:
+                                    (context, onSelected, options) {
+                                  return AutocompleteOptionsList(
+                                    textFieldKey: _model.textFieldKey,
+                                    textController: _model.textController!,
+                                    options: options.toList(),
+                                    onSelected: onSelected,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                        ),
+                                    textHighlightStyle: const TextStyle(),
+                                    elevation: 4.0,
+                                    optionBackgroundColor:
+                                        FlutterFlowTheme.of(context)
+                                            .primaryBackground,
+                                    optionHighlightColor:
+                                        FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                    maxHeight: 200.0,
+                                  );
+                                },
+                                onSelected: (String selection) {
+                                  safeSetState(() => _model
+                                      .textFieldSelectedOption = selection);
+                                  FocusScope.of(context).unfocus();
+                                },
+                                fieldViewBuilder: (
+                                  context,
+                                  textEditingController,
+                                  focusNode,
+                                  onEditingComplete,
+                                ) {
+                                  _model.textFieldFocusNode = focusNode;
+
+                                  _model.textController = textEditingController;
+                                  return TextFormField(
+                                    key: _model.textFieldKey,
+                                    controller: textEditingController,
+                                    focusNode: focusNode,
+                                    onEditingComplete: onEditingComplete,
+                                    autofocus: false,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      isDense: true,
+                                      labelStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            letterSpacing: 0.0,
+                                          ),
+                                      hintText: 'Search Collection',
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            letterSpacing: 0.0,
+                                          ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                      filled: true,
+                                      fillColor: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                        ),
+                                    cursorColor: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    validator: _model.textControllerValidator
+                                        .asValidator(context),
+                                  );
+                                },
                               ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                  color: Color(0x00000000),
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).error,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).error,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              filled: true,
-                              fillColor: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                            ),
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Inter',
-                                  letterSpacing: 0.0,
-                                ),
-                            cursorColor:
-                                FlutterFlowTheme.of(context).primaryText,
-                            validator: _model.textControllerValidator
-                                .asValidator(context),
-                          ),
+                            );
+                          },
                         ),
-                      ),
-                    ),
-                    FFButtonWidget(
-                      onPressed: () {
-                        print('Button pressed ...');
-                      },
-                      text: '',
-                      icon: const Icon(
-                        Icons.search_sharp,
-                        size: 30.0,
-                      ),
-                      options: FFButtonOptions(
-                        height: 40.0,
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            16.0, 0.0, 16.0, 0.0),
-                        iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).secondary,
-                        textStyle:
-                            FlutterFlowTheme.of(context).titleSmall.override(
-                                  fontFamily: 'Inter Tight',
-                                  color: Colors.white,
-                                  fontSize: 20.0,
-                                  letterSpacing: 0.0,
-                                ),
-                        elevation: 0.0,
-                        borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
                   ].divide(const SizedBox(width: 2.0)),
@@ -700,7 +759,15 @@ class _CollectionsAdminWidgetState extends State<CollectionsAdminWidget> {
                   children: [
                     Expanded(
                       child: StreamBuilder<List<CollectionRecord>>(
-                        stream: queryCollectionRecord(),
+                        stream: queryCollectionRecord(
+                          queryBuilder: (collectionRecord) =>
+                              collectionRecord.where(
+                            'name',
+                            isEqualTo: _model.textController.text != ''
+                                ? _model.textController.text
+                                : null,
+                          ),
+                        ),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
                           if (!snapshot.hasData) {

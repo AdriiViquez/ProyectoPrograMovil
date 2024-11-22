@@ -6,8 +6,10 @@ class ProductsAdminModel extends FlutterFlowModel<ProductsAdminWidget> {
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for TextField widget.
+  final textFieldKey = GlobalKey();
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
+  String? textFieldSelectedOption;
   String? Function(BuildContext, String?)? textControllerValidator;
 
   @override
@@ -16,6 +18,5 @@ class ProductsAdminModel extends FlutterFlowModel<ProductsAdminWidget> {
   @override
   void dispose() {
     textFieldFocusNode?.dispose();
-    textController?.dispose();
   }
 }

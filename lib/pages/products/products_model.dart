@@ -6,8 +6,10 @@ class ProductsModel extends FlutterFlowModel<ProductsWidget> {
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for txtSearch widget.
+  final txtSearchKey = GlobalKey();
   FocusNode? txtSearchFocusNode;
   TextEditingController? txtSearchTextController;
+  String? txtSearchSelectedOption;
   String? Function(BuildContext, String?)? txtSearchTextControllerValidator;
 
   @override
@@ -16,6 +18,5 @@ class ProductsModel extends FlutterFlowModel<ProductsWidget> {
   @override
   void dispose() {
     txtSearchFocusNode?.dispose();
-    txtSearchTextController?.dispose();
   }
 }
