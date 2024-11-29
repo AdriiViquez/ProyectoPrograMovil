@@ -564,7 +564,7 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                                 ),
                           ),
                           TextSpan(
-                            text: '*',
+                            text: ' *',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -674,7 +674,7 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                                 ),
                           ),
                           TextSpan(
-                            text: '*',
+                            text: ' *',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -779,7 +779,7 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                                 ),
                           ),
                           TextSpan(
-                            text: '*',
+                            text: ' *',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(

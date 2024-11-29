@@ -544,8 +544,8 @@ class _UsersAdminWidgetState extends State<UsersAdminWidget> {
                   children: [
                     Expanded(
                       child: FFButtonWidget(
-                        onPressed: () {
-                          print('Button pressed ...');
+                        onPressed: () async {
+                          context.pushNamed('CreateUser');
                         },
                         text: '',
                         icon: const Icon(

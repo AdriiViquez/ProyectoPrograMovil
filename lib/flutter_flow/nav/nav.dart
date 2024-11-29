@@ -74,13 +74,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const NavBarPage() : const SignUpWidget(),
+          appStateNotifier.loggedIn ? const NavBarPage() : const ProductsAdminWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? const NavBarPage() : const SignUpWidget(),
+              appStateNotifier.loggedIn ? const NavBarPage() : const ProductsAdminWidget(),
         ),
         FFRoute(
           name: 'SignUp',
@@ -554,7 +554,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/signUp';
+            return '/productsAdmin';
           }
           return null;
         },

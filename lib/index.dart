@@ -37,7 +37,7 @@ export '/pages/admin/providers_admin/providers_admin_widget.dart'
     show ProvidersAdminWidget;
 export '/pages/admin/crud/categories/add_category/add_category_widget.dart'
     show AddCategoryWidget;
-export '/pages/admin/categories_admin/categories_admin_widget.dart'
+export '/pages/categories_admin/categories_admin_widget.dart'
     show CategoriesAdminWidget;
 export '/pages/admin/crud/categories/edit_category/edit_category_widget.dart'
     show EditCategoryWidget;

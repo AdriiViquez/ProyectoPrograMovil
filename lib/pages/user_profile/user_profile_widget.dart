@@ -1071,7 +1071,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                           await authManager.signOut();
                           GoRouter.of(context).clearRedirectLocation();
 
-                          context.goNamedAuth('SignUp', context.mounted);
+                          context.goNamedAuth('ProductsAdmin', context.mounted);
                         },
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
