@@ -53,3 +53,4 @@ export '/pages/admin/crud/collections/details_collection/details_collection_widg
     show DetailsCollectionWidget;
 export '/pages/admin/crud/providers/details_provider/details_provider_widget.dart'
     show DetailsProviderWidget;
+export '/pages/wish_list/wish_list_widget.dart' show WishListWidget;

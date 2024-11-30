@@ -384,6 +384,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ParamType.Document,
             ),
           ),
+        ),
+        FFRoute(
+          name: 'WishList',
+          path: '/wishList',
+          builder: (context, params) => const NavBarPage(
+            initialPage: '',
+            page: WishListWidget(),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

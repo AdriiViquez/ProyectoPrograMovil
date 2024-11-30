@@ -2,6 +2,7 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -892,15 +893,62 @@ class _ProductsWidgetState extends State<ProductsWidget>
                                           11.0, 12.0, 16.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
                                         children: [
-                                          Text(
-                                            'Agregar RartingBar',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Inter',
-                                                  letterSpacing: 0.0,
-                                                ),
+                                          Builder(
+                                            builder: (context) {
+                                              if (listViewProductRecord
+                                                  .favorite) {
+                                                return FlutterFlowIconButton(
+                                                  borderRadius: 8.0,
+                                                  buttonSize: 40.0,
+                                                  fillColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary,
+                                                  icon: Icon(
+                                                    Icons.favorite_border,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondary,
+                                                    size: 30.0,
+                                                  ),
+                                                  onPressed: () async {
+                                                    await listViewProductRecord
+                                                        .reference
+                                                        .update(
+                                                            createProductRecordData(
+                                                      favorite: false,
+                                                    ));
+                                                  },
+                                                );
+                                              } else {
+                                                return FlutterFlowIconButton(
+                                                  borderRadius: 8.0,
+                                                  buttonSize: 40.0,
+                                                  fillColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary,
+                                                  icon: Icon(
+                                                    Icons.favorite,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondary,
+                                                    size: 30.0,
+                                                  ),
+                                                  onPressed: () async {
+                                                    await listViewProductRecord
+                                                        .reference
+                                                        .update(
+                                                            createProductRecordData(
+                                                      favorite: true,
+                                                    ));
+                                                  },
+                                                );
+                                              }
+                                            },
                                           ),
                                         ],
                                       ),

@@ -71,6 +71,11 @@ class ProductRecord extends FirestoreRecord {
   List<String> get color => _color ?? const [];
   bool hasColor() => _color != null;
 
+  // "favorite" field.
+  bool? _favorite;
+  bool get favorite => _favorite ?? false;
+  bool hasFavorite() => _favorite != null;
+
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
     _description = snapshotData['description'] as String?;
@@ -83,6 +88,7 @@ class ProductRecord extends FirestoreRecord {
     _collectionRef = snapshotData['collectionRef'] as DocumentReference?;
     _sizes = getDataList(snapshotData['sizes']);
     _color = getDataList(snapshotData['color']);
+    _favorite = snapshotData['favorite'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -128,6 +134,7 @@ Map<String, dynamic> createProductRecordData({
   DocumentReference? providerRef,
   int? quantity,
   DocumentReference? collectionRef,
+  bool? favorite,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -139,6 +146,7 @@ Map<String, dynamic> createProductRecordData({
       'providerRef': providerRef,
       'quantity': quantity,
       'collectionRef': collectionRef,
+      'favorite': favorite,
     }.withoutNulls,
   );
 
@@ -161,7 +169,8 @@ class ProductRecordDocumentEquality implements Equality<ProductRecord> {
         e1?.quantity == e2?.quantity &&
         e1?.collectionRef == e2?.collectionRef &&
         listEquality.equals(e1?.sizes, e2?.sizes) &&
-        listEquality.equals(e1?.color, e2?.color);
+        listEquality.equals(e1?.color, e2?.color) &&
+        e1?.favorite == e2?.favorite;
   }
 
   @override
@@ -176,7 +185,8 @@ class ProductRecordDocumentEquality implements Equality<ProductRecord> {
         e?.quantity,
         e?.collectionRef,
         e?.sizes,
-        e?.color
+        e?.color,
+        e?.favorite
       ]);
 
   @override
