@@ -150,12 +150,18 @@ class EditProductModel extends FlutterFlowModel<EditProductWidget> {
   // State field(s) for dprCollection widget.
   String? dprCollectionValue;
   FormFieldController<String>? dprCollectionValueController;
+  // Stores action output result for [Custom Action - compareDocumentDtoReferenceIDForCollection] action in dprCollection widget.
+  DocumentReference? collectionRef;
   // State field(s) for dprCategory widget.
   String? dprCategoryValue1;
   FormFieldController<String>? dprCategoryValueController1;
+  // Stores action output result for [Custom Action - compareDocumentIDtoReferenceIDForCategory] action in dprCategory widget.
+  DocumentReference? categoryRef;
   // State field(s) for dprCategory widget.
   String? dprCategoryValue2;
   FormFieldController<String>? dprCategoryValueController2;
+  // Stores action output result for [Custom Action - compareDocumentDtoReferenceIDForProvider] action in dprCategory widget.
+  DocumentReference? providerRef;
   // State field(s) for txtColor widget.
   FocusNode? txtColorFocusNode;
   TextEditingController? txtColorTextController;

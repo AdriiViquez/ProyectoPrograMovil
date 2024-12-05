@@ -74,13 +74,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const NavBarPage() : const ProductsAdminWidget(),
+          appStateNotifier.loggedIn ? const NavBarPage() : const UsersAdminWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? const NavBarPage() : const ProductsAdminWidget(),
+              appStateNotifier.loggedIn ? const NavBarPage() : const UsersAdminWidget(),
         ),
         FFRoute(
           name: 'SignUp',
@@ -133,14 +133,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'Product',
-          path: '/product',
-          builder: (context, params) => const NavBarPage(
-            initialPage: '',
-            page: ProductWidget(),
-          ),
-        ),
-        FFRoute(
           name: 'UsersAdmin',
           path: '/usersAdmin',
           builder: (context, params) => const NavBarPage(
@@ -165,14 +157,22 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'CreateUser',
-          path: '/createUser',
-          builder: (context, params) => const CreateUserWidget(),
+          name: 'AddUser',
+          path: '/addUser',
+          builder: (context, params) => const AddUserWidget(),
         ),
         FFRoute(
           name: 'EditUser',
           path: '/editUser',
-          builder: (context, params) => const EditUserWidget(),
+          asyncParams: {
+            'paramUser': getDoc(['users'], UsersRecord.fromSnapshot),
+          },
+          builder: (context, params) => EditUserWidget(
+            paramUser: params.getParam(
+              'paramUser',
+              ParamType.Document,
+            ),
+          ),
         ),
         FFRoute(
           name: 'AddProvider',
@@ -351,10 +351,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           asyncParams: {
             'paramProduct': getDoc(['product'], ProductRecord.fromSnapshot),
           },
-          builder: (context, params) => DetailsProductWidget(
-            paramProduct: params.getParam(
-              'paramProduct',
-              ParamType.Document,
+          builder: (context, params) => NavBarPage(
+            initialPage: '',
+            page: DetailsProductWidget(
+              paramProduct: params.getParam(
+                'paramProduct',
+                ParamType.Document,
+              ),
             ),
           ),
         ),
@@ -392,6 +395,28 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             initialPage: '',
             page: WishListWidget(),
           ),
+        ),
+        FFRoute(
+          name: 'ProductsCollection',
+          path: '/productsCollection',
+          asyncParams: {
+            'collectionCollection':
+                getDoc(['collection'], CollectionRecord.fromSnapshot),
+          },
+          builder: (context, params) => NavBarPage(
+            initialPage: '',
+            page: ProductsCollectionWidget(
+              collectionCollection: params.getParam(
+                'collectionCollection',
+                ParamType.Document,
+              ),
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'AddProductCopy',
+          path: '/addProductCopy',
+          builder: (context, params) => const AddProductCopyWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -562,7 +587,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/productsAdmin';
+            return '/usersAdmin';
           }
           return null;
         },

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -60,10 +61,15 @@ class UsersRecord extends FirestoreRecord {
   String get secondLastName => _secondLastName ?? '';
   bool hasSecondLastName() => _secondLastName != null;
 
-  // "roles" field.
-  DocumentReference? _roles;
-  DocumentReference? get roles => _roles;
-  bool hasRoles() => _roles != null;
+  // "role" field.
+  List<String>? _role;
+  List<String> get role => _role ?? const [];
+  bool hasRole() => _role != null;
+
+  // "status" field.
+  String? _status;
+  String get status => _status ?? '';
+  bool hasStatus() => _status != null;
 
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
@@ -75,7 +81,8 @@ class UsersRecord extends FirestoreRecord {
     _address = snapshotData['address'] as String?;
     _firstLastName = snapshotData['firstLastName'] as String?;
     _secondLastName = snapshotData['secondLastName'] as String?;
-    _roles = snapshotData['roles'] as DocumentReference?;
+    _role = getDataList(snapshotData['role']);
+    _status = snapshotData['status'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -121,7 +128,7 @@ Map<String, dynamic> createUsersRecordData({
   String? address,
   String? firstLastName,
   String? secondLastName,
-  DocumentReference? roles,
+  String? status,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -134,7 +141,7 @@ Map<String, dynamic> createUsersRecordData({
       'address': address,
       'firstLastName': firstLastName,
       'secondLastName': secondLastName,
-      'roles': roles,
+      'status': status,
     }.withoutNulls,
   );
 
@@ -146,6 +153,7 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
 
   @override
   bool equals(UsersRecord? e1, UsersRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.email == e2?.email &&
         e1?.displayName == e2?.displayName &&
         e1?.photoUrl == e2?.photoUrl &&
@@ -155,7 +163,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.address == e2?.address &&
         e1?.firstLastName == e2?.firstLastName &&
         e1?.secondLastName == e2?.secondLastName &&
-        e1?.roles == e2?.roles;
+        listEquality.equals(e1?.role, e2?.role) &&
+        e1?.status == e2?.status;
   }
 
   @override
@@ -169,7 +178,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.address,
         e?.firstLastName,
         e?.secondLastName,
-        e?.roles
+        e?.role,
+        e?.status
       ]);
 
   @override

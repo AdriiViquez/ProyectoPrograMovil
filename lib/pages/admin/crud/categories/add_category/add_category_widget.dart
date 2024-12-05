@@ -138,12 +138,12 @@ class _AddCategoryWidgetState extends State<AddCategoryWidget> {
                                                 Padding(
                                                   padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
-                                                          0.0, 0.0, 0.0, 10.0),
+                                                          0.0, 0.0, 0.0, 20.0),
                                                   child: AuthUserStreamWidget(
                                                     builder: (context) =>
                                                         Container(
-                                                      width: 140.0,
-                                                      height: 140.0,
+                                                      width: 120.0,
+                                                      height: 120.0,
                                                       clipBehavior:
                                                           Clip.antiAlias,
                                                       decoration: const BoxDecoration(

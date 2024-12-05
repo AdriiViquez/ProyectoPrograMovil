@@ -136,19 +136,24 @@ class _DetailsCollectionWidgetState extends State<DetailsCollectionWidget> {
                                             Column(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
-                                                AuthUserStreamWidget(
-                                                  builder: (context) =>
-                                                      Container(
-                                                    width: 70.0,
-                                                    height: 70.0,
-                                                    clipBehavior:
-                                                        Clip.antiAlias,
-                                                    decoration: const BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                    child: Image.network(
-                                                      currentUserPhoto,
-                                                      fit: BoxFit.cover,
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 0.0, 20.0),
+                                                  child: AuthUserStreamWidget(
+                                                    builder: (context) =>
+                                                        Container(
+                                                      width: 120.0,
+                                                      height: 120.0,
+                                                      clipBehavior:
+                                                          Clip.antiAlias,
+                                                      decoration: const BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                      child: Image.network(
+                                                        currentUserPhoto,
+                                                        fit: BoxFit.cover,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
@@ -622,6 +627,7 @@ class _DetailsCollectionWidgetState extends State<DetailsCollectionWidget> {
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily: 'Inter',
+                                                        color: Colors.black,
                                                         letterSpacing: 0.0,
                                                       ),
                                                 ),
@@ -640,6 +646,7 @@ class _DetailsCollectionWidgetState extends State<DetailsCollectionWidget> {
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily: 'Inter',
+                                                        color: Colors.black,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w800,
@@ -665,6 +672,7 @@ class _DetailsCollectionWidgetState extends State<DetailsCollectionWidget> {
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily: 'Inter',
+                                                          color: Colors.black,
                                                           letterSpacing: 0.0,
                                                         ),
                                                   ),
@@ -684,6 +692,7 @@ class _DetailsCollectionWidgetState extends State<DetailsCollectionWidget> {
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily: 'Inter',
+                                                        color: Colors.black,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w800,
@@ -709,6 +718,7 @@ class _DetailsCollectionWidgetState extends State<DetailsCollectionWidget> {
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily: 'Inter',
+                                                          color: Colors.black,
                                                           letterSpacing: 0.0,
                                                         ),
                                                   ),

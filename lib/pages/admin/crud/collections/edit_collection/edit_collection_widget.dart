@@ -148,19 +148,24 @@ class _EditCollectionWidgetState extends State<EditCollectionWidget> {
                                             Column(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
-                                                AuthUserStreamWidget(
-                                                  builder: (context) =>
-                                                      Container(
-                                                    width: 70.0,
-                                                    height: 70.0,
-                                                    clipBehavior:
-                                                        Clip.antiAlias,
-                                                    decoration: const BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                    child: Image.network(
-                                                      currentUserPhoto,
-                                                      fit: BoxFit.cover,
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 0.0, 20.0),
+                                                  child: AuthUserStreamWidget(
+                                                    builder: (context) =>
+                                                        Container(
+                                                      width: 120.0,
+                                                      height: 120.0,
+                                                      clipBehavior:
+                                                          Clip.antiAlias,
+                                                      decoration: const BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                      child: Image.network(
+                                                        currentUserPhoto,
+                                                        fit: BoxFit.cover,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
@@ -641,9 +646,7 @@ class _EditCollectionWidgetState extends State<EditCollectionWidget> {
                                                           .labelMedium
                                                           .override(
                                                             fontFamily: 'Inter',
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .secondaryBackground,
+                                                            color: Colors.white,
                                                             letterSpacing: 0.0,
                                                           ),
                                                   hintText: 'Name',
@@ -661,7 +664,7 @@ class _EditCollectionWidgetState extends State<EditCollectionWidget> {
                                                   enabledBorder:
                                                       OutlineInputBorder(
                                                     borderSide: const BorderSide(
-                                                      color: Color(0x00000000),
+                                                      color: Colors.white,
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:
@@ -767,7 +770,7 @@ class _EditCollectionWidgetState extends State<EditCollectionWidget> {
                                                   enabledBorder:
                                                       OutlineInputBorder(
                                                     borderSide: const BorderSide(
-                                                      color: Color(0x00000000),
+                                                      color: Colors.white,
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:

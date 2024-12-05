@@ -161,19 +161,24 @@ class _EditProviderWidgetState extends State<EditProviderWidget> {
                                             Column(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
-                                                AuthUserStreamWidget(
-                                                  builder: (context) =>
-                                                      Container(
-                                                    width: 70.0,
-                                                    height: 70.0,
-                                                    clipBehavior:
-                                                        Clip.antiAlias,
-                                                    decoration: const BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                    child: Image.network(
-                                                      currentUserPhoto,
-                                                      fit: BoxFit.cover,
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 0.0, 20.0),
+                                                  child: AuthUserStreamWidget(
+                                                    builder: (context) =>
+                                                        Container(
+                                                      width: 120.0,
+                                                      height: 120.0,
+                                                      clipBehavior:
+                                                          Clip.antiAlias,
+                                                      decoration: const BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                      child: Image.network(
+                                                        currentUserPhoto,
+                                                        fit: BoxFit.cover,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
@@ -647,7 +652,7 @@ class _EditProviderWidgetState extends State<EditProviderWidget> {
                                                   enabledBorder:
                                                       OutlineInputBorder(
                                                     borderSide: const BorderSide(
-                                                      color: Color(0x00000000),
+                                                      color: Colors.white,
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:
@@ -753,7 +758,7 @@ class _EditProviderWidgetState extends State<EditProviderWidget> {
                                                   enabledBorder:
                                                       OutlineInputBorder(
                                                     borderSide: const BorderSide(
-                                                      color: Color(0x00000000),
+                                                      color: Colors.white,
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:
@@ -859,7 +864,7 @@ class _EditProviderWidgetState extends State<EditProviderWidget> {
                                                   enabledBorder:
                                                       OutlineInputBorder(
                                                     borderSide: const BorderSide(
-                                                      color: Color(0x00000000),
+                                                      color: Colors.white,
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:
@@ -965,7 +970,7 @@ class _EditProviderWidgetState extends State<EditProviderWidget> {
                                                   enabledBorder:
                                                       OutlineInputBorder(
                                                     borderSide: const BorderSide(
-                                                      color: Color(0x00000000),
+                                                      color: Colors.white,
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:
@@ -1071,7 +1076,7 @@ class _EditProviderWidgetState extends State<EditProviderWidget> {
                                                   enabledBorder:
                                                       OutlineInputBorder(
                                                     borderSide: const BorderSide(
-                                                      color: Color(0x00000000),
+                                                      color: Colors.white,
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:
@@ -1179,7 +1184,7 @@ class _EditProviderWidgetState extends State<EditProviderWidget> {
                                                   enabledBorder:
                                                       OutlineInputBorder(
                                                     borderSide: const BorderSide(
-                                                      color: Color(0x00000000),
+                                                      color: Colors.white,
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:
@@ -1293,7 +1298,7 @@ class _EditProviderWidgetState extends State<EditProviderWidget> {
                                                   FlutterFlowTheme.of(context)
                                                       .accent4,
                                               elevation: 2.0,
-                                              borderColor: Colors.transparent,
+                                              borderColor: const Color(0x00FFFFFF),
                                               borderWidth: 0.0,
                                               borderRadius: 8.0,
                                               margin: const EdgeInsetsDirectional

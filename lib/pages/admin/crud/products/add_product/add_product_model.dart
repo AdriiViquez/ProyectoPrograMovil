@@ -1,3 +1,4 @@
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'add_product_widget.dart' show AddProductWidget;
@@ -45,9 +46,13 @@ class AddProductModel extends FlutterFlowModel<AddProductWidget> {
   void updateSelectedCollectionAtIndex(int index, Function(String) updateFn) =>
       selectedCollection[index] = updateFn(selectedCollection[index]);
 
+  String isClothes = 'ohTG8r2Kf4JzUM3KssFW';
+
   ///  State fields for stateful widgets in this page.
 
   final formKey = GlobalKey<FormState>();
+  // Stores action output result for [Firestore Query - Query a collection] action in Column widget.
+  List<CategoryRecord>? categorie;
   // State field(s) for txtProductName widget.
   FocusNode? txtProductNameFocusNode;
   TextEditingController? txtProductNameTextController;
@@ -165,12 +170,20 @@ class AddProductModel extends FlutterFlowModel<AddProductWidget> {
   List<String> get checkboxCheckedItems =>
       checkboxValueMap.entries.where((e) => e.value).map((e) => e.key).toList();
 
-  // Stores action output result for [Custom Action - getCollectionIdReference] action in Button widget.
-  DocumentReference? collectionIdReference;
-  // Stores action output result for [Custom Action - getCategoryIdReference] action in Button widget.
-  DocumentReference? categoryIdReference;
-  // Stores action output result for [Custom Action - getProviderIdReference] action in Button widget.
-  DocumentReference? providerIdReference;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  List<CategoryRecord>? categories;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  List<CollectionRecord>? collections;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  List<ProviderRecord>? providers;
+  // Stores action output result for [Custom Action - compareDocumentDtoReferenceIDForCollection] action in Button widget.
+  DocumentReference? collectionRef;
+  // Stores action output result for [Custom Action - compareDocumentDtoReferenceIDForProvider] action in Button widget.
+  DocumentReference? providerRef;
+  // Stores action output result for [Custom Action - compareDocumentIDtoReferenceIDForCategory] action in Button widget.
+  DocumentReference? categoryRef;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  ProductRecord? savedDocument;
 
   @override
   void initState(BuildContext context) {

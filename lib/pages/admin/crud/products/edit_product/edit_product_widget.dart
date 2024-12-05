@@ -160,19 +160,24 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                             Column(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
-                                                AuthUserStreamWidget(
-                                                  builder: (context) =>
-                                                      Container(
-                                                    width: 70.0,
-                                                    height: 70.0,
-                                                    clipBehavior:
-                                                        Clip.antiAlias,
-                                                    decoration: const BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                    child: Image.network(
-                                                      currentUserPhoto,
-                                                      fit: BoxFit.cover,
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 0.0, 20.0),
+                                                  child: AuthUserStreamWidget(
+                                                    builder: (context) =>
+                                                        Container(
+                                                      width: 120.0,
+                                                      height: 120.0,
+                                                      clipBehavior:
+                                                          Clip.antiAlias,
+                                                      decoration: const BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                      child: Image.network(
+                                                        currentUserPhoto,
+                                                        fit: BoxFit.cover,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
@@ -1341,6 +1346,18 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                         _model
                                                             .dprCollectionValue!);
                                                     safeSetState(() {});
+                                                    _model.collectionRef =
+                                                        await actions
+                                                            .compareDocumentDtoReferenceIDForCollection(
+                                                      _model
+                                                          .dprCollectionValue!,
+                                                      dprCollectionCollectionRecordList
+                                                          .map((e) =>
+                                                              e.reference)
+                                                          .toList(),
+                                                    );
+
+                                                    safeSetState(() {});
                                                   },
                                                   width: 200.0,
                                                   height: 40.0,
@@ -1428,17 +1445,33 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                       FormFieldController<
                                                           String>(
                                                     _model.dprCategoryValue1 ??=
-                                                        widget.paramProduct
-                                                            ?.categoryRef?.id,
+                                                        '',
                                                   ),
-                                                  options:
+                                                  options: List<String>.from(
+                                                      dprCategoryCategoryRecordList
+                                                          .map((e) =>
+                                                              e.reference.id)
+                                                          .toList()),
+                                                  optionLabels:
                                                       dprCategoryCategoryRecordList
                                                           .map((e) => e.name)
                                                           .toList(),
-                                                  onChanged: (val) =>
-                                                      safeSetState(() => _model
-                                                              .dprCategoryValue1 =
-                                                          val),
+                                                  onChanged: (val) async {
+                                                    safeSetState(() => _model
+                                                            .dprCategoryValue1 =
+                                                        val);
+                                                    _model.categoryRef =
+                                                        await actions
+                                                            .compareDocumentIDtoReferenceIDForCategory(
+                                                      _model.dprCategoryValue1!,
+                                                      dprCategoryCategoryRecordList
+                                                          .map((e) =>
+                                                              e.reference)
+                                                          .toList(),
+                                                    );
+
+                                                    safeSetState(() {});
+                                                  },
                                                   width: 200.0,
                                                   height: 40.0,
                                                   textStyle:
@@ -1524,17 +1557,33 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                       FormFieldController<
                                                           String>(
                                                     _model.dprCategoryValue2 ??=
-                                                        widget.paramProduct
-                                                            ?.providerRef?.id,
+                                                        '',
                                                   ),
-                                                  options:
+                                                  options: List<String>.from(
+                                                      dprCategoryProviderRecordList
+                                                          .map((e) =>
+                                                              e.reference.id)
+                                                          .toList()),
+                                                  optionLabels:
                                                       dprCategoryProviderRecordList
                                                           .map((e) => e.name)
                                                           .toList(),
-                                                  onChanged: (val) =>
-                                                      safeSetState(() => _model
-                                                              .dprCategoryValue2 =
-                                                          val),
+                                                  onChanged: (val) async {
+                                                    safeSetState(() => _model
+                                                            .dprCategoryValue2 =
+                                                        val);
+                                                    _model.providerRef =
+                                                        await actions
+                                                            .compareDocumentDtoReferenceIDForProvider(
+                                                      _model.dprCategoryValue2!,
+                                                      dprCategoryProviderRecordList
+                                                          .map((e) =>
+                                                              e.reference)
+                                                          .toList(),
+                                                    );
+
+                                                    safeSetState(() {});
+                                                  },
                                                   width: 200.0,
                                                   height: 40.0,
                                                   textStyle:
