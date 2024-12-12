@@ -1,4 +1,5 @@
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/form_field_controller.dart';
 import 'sign_up_widget.dart' show SignUpWidget;
 import 'package:flutter/material.dart';
 
@@ -52,6 +53,9 @@ class SignUpModel extends FlutterFlowModel<SignUpWidget> {
   late bool txtPasswordConfirmVisibility;
   String? Function(BuildContext, String?)?
       txtPasswordConfirmTextControllerValidator;
+  // State field(s) for dprAdmin widget.
+  String? dprAdminValue;
+  FormFieldController<String>? dprAdminValueController;
 
   @override
   void initState(BuildContext context) {

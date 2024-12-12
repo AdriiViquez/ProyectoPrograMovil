@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -76,6 +75,11 @@ class ProductRecord extends FirestoreRecord {
   bool get favorite => _favorite ?? false;
   bool hasFavorite() => _favorite != null;
 
+  // "sells" field.
+  int? _sells;
+  int get sells => _sells ?? 0;
+  bool hasSells() => _sells != null;
+
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
     _description = snapshotData['description'] as String?;
@@ -89,6 +93,7 @@ class ProductRecord extends FirestoreRecord {
     _sizes = getDataList(snapshotData['sizes']);
     _color = getDataList(snapshotData['color']);
     _favorite = snapshotData['favorite'] as bool?;
+    _sells = castToType<int>(snapshotData['sells']);
   }
 
   static CollectionReference get collection =>
@@ -135,6 +140,7 @@ Map<String, dynamic> createProductRecordData({
   int? quantity,
   DocumentReference? collectionRef,
   bool? favorite,
+  int? sells,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -147,6 +153,7 @@ Map<String, dynamic> createProductRecordData({
       'quantity': quantity,
       'collectionRef': collectionRef,
       'favorite': favorite,
+      'sells': sells,
     }.withoutNulls,
   );
 
@@ -170,7 +177,8 @@ class ProductRecordDocumentEquality implements Equality<ProductRecord> {
         e1?.collectionRef == e2?.collectionRef &&
         listEquality.equals(e1?.sizes, e2?.sizes) &&
         listEquality.equals(e1?.color, e2?.color) &&
-        e1?.favorite == e2?.favorite;
+        e1?.favorite == e2?.favorite &&
+        e1?.sells == e2?.sells;
   }
 
   @override
@@ -186,7 +194,8 @@ class ProductRecordDocumentEquality implements Equality<ProductRecord> {
         e?.collectionRef,
         e?.sizes,
         e?.color,
-        e?.favorite
+        e?.favorite,
+        e?.sells
       ]);
 
   @override

@@ -25,6 +25,10 @@ class ProductsModel extends FlutterFlowModel<ProductsWidget> {
   Query? listViewPagingQuery;
   List<StreamSubscription?> listViewStreamSubscriptions = [];
 
+  // State field(s) for dprAdmin widget.
+  String? dprAdminValue;
+  FormFieldController<String>? dprAdminValueController;
+
   @override
   void initState(BuildContext context) {}
 

@@ -184,6 +184,9 @@ class AddProductModel extends FlutterFlowModel<AddProductWidget> {
   DocumentReference? categoryRef;
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
   ProductRecord? savedDocument;
+  // State field(s) for dprAdmin widget.
+  String? dprAdminValue;
+  FormFieldController<String>? dprAdminValueController;
 
   @override
   void initState(BuildContext context) {

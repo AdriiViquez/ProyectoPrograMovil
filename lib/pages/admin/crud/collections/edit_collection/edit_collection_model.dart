@@ -65,6 +65,9 @@ class EditCollectionModel extends FlutterFlowModel<EditCollectionWidget> {
   // State field(s) for dprdStatus widget.
   String? dprdStatusValue;
   FormFieldController<String>? dprdStatusValueController;
+  // State field(s) for dprAdmin widget.
+  String? dprAdminValue;
+  FormFieldController<String>? dprAdminValueController;
 
   @override
   void initState(BuildContext context) {

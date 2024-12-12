@@ -1,47 +1,77 @@
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/form_field_controller.dart';
 import 'edit_profile_widget.dart' show EditProfileWidget;
 import 'package:flutter/material.dart';
 
 class EditProfileModel extends FlutterFlowModel<EditProfileWidget> {
   ///  State fields for stateful widgets in this page.
 
+  final formKey = GlobalKey<FormState>();
   bool isDataUploading = false;
   FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl = '';
 
-  // State field(s) for TxtName widget.
+  // State field(s) for txtName widget.
   FocusNode? txtNameFocusNode;
   TextEditingController? txtNameTextController;
   String? Function(BuildContext, String?)? txtNameTextControllerValidator;
-  // State field(s) for TxtEmail widget.
-  FocusNode? txtEmailFocusNode;
-  TextEditingController? txtEmailTextController;
-  String? Function(BuildContext, String?)? txtEmailTextControllerValidator;
-  // State field(s) for TxtPhone widget.
-  FocusNode? txtPhoneFocusNode;
-  TextEditingController? txtPhoneTextController;
-  String? Function(BuildContext, String?)? txtPhoneTextControllerValidator;
-  // State field(s) for TxtAddress widget.
-  FocusNode? txtAddressFocusNode;
-  TextEditingController? txtAddressTextController;
-  String? Function(BuildContext, String?)? txtAddressTextControllerValidator;
+  String? _txtNameTextControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Field is required';
+    }
+
+    return null;
+  }
+
+  // State field(s) for txtEmail widget.
+  FocusNode? txtEmailFocusNode1;
+  TextEditingController? txtEmailTextController1;
+  String? Function(BuildContext, String?)? txtEmailTextController1Validator;
+  // State field(s) for txtLastName widget.
+  FocusNode? txtLastNameFocusNode;
+  TextEditingController? txtLastNameTextController;
+  String? Function(BuildContext, String?)? txtLastNameTextControllerValidator;
+  // State field(s) for txtsecondLastName widget.
+  FocusNode? txtsecondLastNameFocusNode;
+  TextEditingController? txtsecondLastNameTextController;
+  String? Function(BuildContext, String?)?
+      txtsecondLastNameTextControllerValidator;
+  // State field(s) for txtEmail widget.
+  FocusNode? txtEmailFocusNode2;
+  TextEditingController? txtEmailTextController2;
+  String? Function(BuildContext, String?)? txtEmailTextController2Validator;
+  // State field(s) for txtEmail widget.
+  FocusNode? txtEmailFocusNode3;
+  TextEditingController? txtEmailTextController3;
+  String? Function(BuildContext, String?)? txtEmailTextController3Validator;
+  // State field(s) for dprAdmin widget.
+  String? dprAdminValue;
+  FormFieldController<String>? dprAdminValueController;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    txtNameTextControllerValidator = _txtNameTextControllerValidator;
+  }
 
   @override
   void dispose() {
     txtNameFocusNode?.dispose();
     txtNameTextController?.dispose();
 
-    txtEmailFocusNode?.dispose();
-    txtEmailTextController?.dispose();
+    txtEmailFocusNode1?.dispose();
+    txtEmailTextController1?.dispose();
 
-    txtPhoneFocusNode?.dispose();
-    txtPhoneTextController?.dispose();
+    txtLastNameFocusNode?.dispose();
+    txtLastNameTextController?.dispose();
 
-    txtAddressFocusNode?.dispose();
-    txtAddressTextController?.dispose();
+    txtsecondLastNameFocusNode?.dispose();
+    txtsecondLastNameTextController?.dispose();
+
+    txtEmailFocusNode2?.dispose();
+    txtEmailTextController2?.dispose();
+
+    txtEmailFocusNode3?.dispose();
+    txtEmailTextController3?.dispose();
   }
 }

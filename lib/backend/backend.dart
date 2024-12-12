@@ -17,6 +17,7 @@ import 'schema/invoice_detail_record.dart';
 import 'schema/sales_record.dart';
 import 'schema/users_record.dart';
 import 'schema/cart_record.dart';
+import 'schema/contact_us_record.dart';
 import 'dart:async';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
@@ -39,6 +40,7 @@ export 'schema/invoice_detail_record.dart';
 export 'schema/sales_record.dart';
 export 'schema/users_record.dart';
 export 'schema/cart_record.dart';
+export 'schema/contact_us_record.dart';
 
 /// Functions to query CategoryRecords (as a Stream and as a Future).
 Future<int> queryCategoryRecordCount({
@@ -957,6 +959,84 @@ Future<FFFirestorePage<CartRecord>> queryCartRecordPage({
       if (isStream) {
         final streamSubscription =
             (page.dataStream)?.listen((List<CartRecord> data) {
+          for (var item in data) {
+            final itemIndexes = controller.itemList!
+                .asMap()
+                .map((k, v) => MapEntry(v.reference.id, k));
+            final index = itemIndexes[item.reference.id];
+            final items = controller.itemList!;
+            if (index != null) {
+              items.replaceRange(index, index + 1, [item]);
+              controller.itemList = {
+                for (var item in items) item.reference: item
+              }.values.toList();
+            }
+          }
+        });
+        streamSubscriptions?.add(streamSubscription);
+      }
+      return page;
+    });
+
+/// Functions to query ContactUsRecords (as a Stream and as a Future).
+Future<int> queryContactUsRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      ContactUsRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<ContactUsRecord>> queryContactUsRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      ContactUsRecord.collection,
+      ContactUsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<ContactUsRecord>> queryContactUsRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      ContactUsRecord.collection,
+      ContactUsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+Future<FFFirestorePage<ContactUsRecord>> queryContactUsRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+  required PagingController<DocumentSnapshot?, ContactUsRecord> controller,
+  List<StreamSubscription?>? streamSubscriptions,
+}) =>
+    queryCollectionPage(
+      ContactUsRecord.collection,
+      ContactUsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    ).then((page) {
+      controller.appendPage(
+        page.data,
+        page.nextPageMarker,
+      );
+      if (isStream) {
+        final streamSubscription =
+            (page.dataStream)?.listen((List<ContactUsRecord> data) {
           for (var item in data) {
             final itemIndexes = controller.itemList!
                 .asMap()

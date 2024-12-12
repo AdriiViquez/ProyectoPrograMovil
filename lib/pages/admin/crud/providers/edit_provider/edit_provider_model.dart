@@ -142,6 +142,9 @@ class EditProviderModel extends FlutterFlowModel<EditProviderWidget> {
   // State field(s) for dprProviderStatus widget.
   String? dprProviderStatusValue;
   FormFieldController<String>? dprProviderStatusValueController;
+  // State field(s) for dprAdmin widget.
+  String? dprAdminValue;
+  FormFieldController<String>? dprAdminValueController;
 
   @override
   void initState(BuildContext context) {

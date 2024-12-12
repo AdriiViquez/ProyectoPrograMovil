@@ -1,9 +1,10 @@
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'edit_product_widget.dart' show EditProductWidget;
+import 'edit_product1_widget.dart' show EditProduct1Widget;
 import 'package:flutter/material.dart';
 
-class EditProductModel extends FlutterFlowModel<EditProductWidget> {
+class EditProduct1Model extends FlutterFlowModel<EditProduct1Widget> {
   ///  Local state fields for this page.
 
   List<String> colorsList = [];
@@ -45,9 +46,13 @@ class EditProductModel extends FlutterFlowModel<EditProductWidget> {
   void updateSelectedCollectionAtIndex(int index, Function(String) updateFn) =>
       selectedCollection[index] = updateFn(selectedCollection[index]);
 
+  String isClothes = 'ohTG8r2Kf4JzUM3KssFW';
+
   ///  State fields for stateful widgets in this page.
 
   final formKey = GlobalKey<FormState>();
+  // Stores action output result for [Firestore Query - Query a collection] action in Column widget.
+  List<CategoryRecord>? categorie;
   // State field(s) for txtProductName widget.
   FocusNode? txtProductNameFocusNode;
   TextEditingController? txtProductNameTextController;
@@ -150,18 +155,12 @@ class EditProductModel extends FlutterFlowModel<EditProductWidget> {
   // State field(s) for dprCollection widget.
   String? dprCollectionValue;
   FormFieldController<String>? dprCollectionValueController;
-  // Stores action output result for [Custom Action - compareDocumentDtoReferenceIDForCollection] action in dprCollection widget.
-  DocumentReference? collectionRef;
   // State field(s) for dprCategory widget.
   String? dprCategoryValue1;
   FormFieldController<String>? dprCategoryValueController1;
-  // Stores action output result for [Custom Action - compareDocumentIDtoReferenceIDForCategory] action in dprCategory widget.
-  DocumentReference? categoryRef;
   // State field(s) for dprCategory widget.
   String? dprCategoryValue2;
   FormFieldController<String>? dprCategoryValueController2;
-  // Stores action output result for [Custom Action - compareDocumentDtoReferenceIDForProvider] action in dprCategory widget.
-  DocumentReference? providerRef;
   // State field(s) for txtColor widget.
   FocusNode? txtColorFocusNode;
   TextEditingController? txtColorTextController;
@@ -171,12 +170,21 @@ class EditProductModel extends FlutterFlowModel<EditProductWidget> {
   List<String> get checkboxCheckedItems =>
       checkboxValueMap.entries.where((e) => e.value).map((e) => e.key).toList();
 
-  // Stores action output result for [Custom Action - getCollectionIdReference] action in Button widget.
-  DocumentReference? collectionIdReference;
-  // Stores action output result for [Custom Action - getCategoryIdReference] action in Button widget.
-  DocumentReference? categoryIdReference;
-  // Stores action output result for [Custom Action - getProviderIdReference] action in Button widget.
-  DocumentReference? providerIdReference;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  List<CategoryRecord>? categories;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  List<CollectionRecord>? collections;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  List<ProviderRecord>? providers;
+  // Stores action output result for [Custom Action - compareDocumentDtoReferenceIDForCollection] action in Button widget.
+  DocumentReference? collectionRef;
+  // Stores action output result for [Custom Action - compareDocumentDtoReferenceIDForProvider] action in Button widget.
+  DocumentReference? providerRef;
+  // Stores action output result for [Custom Action - compareDocumentIDtoReferenceIDForCategory] action in Button widget.
+  DocumentReference? categoryRef;
+  // State field(s) for dprAdmin widget.
+  String? dprAdminValue;
+  FormFieldController<String>? dprAdminValueController;
 
   @override
   void initState(BuildContext context) {

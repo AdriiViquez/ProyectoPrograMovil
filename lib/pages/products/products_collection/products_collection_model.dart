@@ -18,6 +18,9 @@ class ProductsCollectionModel
   FormFieldController<String>? dropDownValueController;
   // Stores action output result for [Custom Action - compareDocumentIDtoReferenceIDForCategory] action in DropDown widget.
   DocumentReference? categoryRef;
+  // State field(s) for dprAdmin widget.
+  String? dprAdminValue;
+  FormFieldController<String>? dprAdminValueController;
 
   @override
   void initState(BuildContext context) {}

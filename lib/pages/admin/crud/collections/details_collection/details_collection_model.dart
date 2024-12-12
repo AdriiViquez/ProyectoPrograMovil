@@ -1,4 +1,5 @@
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/form_field_controller.dart';
 import 'details_collection_widget.dart' show DetailsCollectionWidget;
 import 'package:flutter/material.dart';
 
@@ -47,6 +48,9 @@ class DetailsCollectionModel extends FlutterFlowModel<DetailsCollectionWidget> {
   ///  State fields for stateful widgets in this page.
 
   final formKey = GlobalKey<FormState>();
+  // State field(s) for dprAdmin widget.
+  String? dprAdminValue;
+  FormFieldController<String>? dprAdminValueController;
 
   @override
   void initState(BuildContext context) {}

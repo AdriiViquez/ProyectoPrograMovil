@@ -10,6 +10,7 @@ import 'place.dart';
 import 'uploaded_file.dart';
 import '/backend/backend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '/backend/schema/structs/index.dart';
 import '/auth/firebase_auth/auth_util.dart';
 
 double totalList(List<double> subtotal) {
@@ -35,21 +36,67 @@ double totalListPlusTax(List<double> subtotal) {
   return total;
 }
 
-double restaProducto(
-  double valorsubtotal,
-  double precio,
-) {
-  if (valorsubtotal > 0) {
-    valorsubtotal = valorsubtotal - precio;
+double? calculateTotalBasePrice(List<CartRecord> cartList) {
+  var basePrice = 0.0;
+
+  for (var cartItem in cartList) {
+    basePrice += cartItem.subTotal *
+        cartItem.quantity; // Considerar el subtotal y la cantidad
   }
 
-  return valorsubtotal;
+  // Redondear a 2 decimales
+  basePrice = double.parse(basePrice.toStringAsFixed(2));
+
+  return basePrice;
 }
 
-double sumarProducto(
-  double valorsubtotal,
-  double precio,
+double sumResultIVA(List<CartRecord> cartList) {
+  var totalIVAFee = 0.0;
+
+  for (var cartItem in cartList) {
+    // IVA por producto considerando cantidad
+    totalIVAFee +=
+        (cartItem.productwithIVA - cartItem.subTotal) * cartItem.quantity;
+  }
+
+  // Redondear a 2 decimales
+  totalIVAFee = double.parse(totalIVAFee.toStringAsFixed(2));
+
+  return totalIVAFee;
+}
+
+double calculateTotalWithIVA(List<CartRecord> cartList) {
+  var totalWithIVA = 0.0;
+
+  for (var cartItem in cartList) {
+    totalWithIVA += cartItem.productwithIVA *
+        cartItem.quantity; // Precio con IVA por cantidad
+  }
+  // Redondear a 2 decimales
+  totalWithIVA = double.parse(totalWithIVA.toStringAsFixed(2));
+  return totalWithIVA;
+}
+
+String getProductName(
+  List<ProductRecord> listofProducts,
+  CartRecord cartDocument,
 ) {
-  valorsubtotal = valorsubtotal + precio;
-  return valorsubtotal;
+  for (var product in listofProducts) {
+    if (product.reference == cartDocument.product) {
+      return product.name;
+    }
+  }
+  return "";
+}
+
+String getFirstImageOfProduct(
+  List<ProductRecord> productsList,
+  CartRecord cart,
+) {
+  for (var product in productsList) {
+    if (product.reference == cart.product) {
+      return product.images[0];
+    }
+  }
+  return "";
 }

@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -7,6 +8,7 @@ import '/flutter_flow/form_field_controller.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'add_user_model.dart';
 export 'add_user_model.dart';
 
@@ -27,6 +29,13 @@ class _AddUserWidgetState extends State<AddUserWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => AddUserModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (!(currentUserDocument?.role.toList() ?? []).contains('Admin')) {
+        context.pushNamed('Home');
+      }
+    });
 
     _model.txtNameTextController ??= TextEditingController();
     _model.txtNameFocusNode ??= FocusNode();
@@ -63,7 +72,10 @@ class _AddUserWidgetState extends State<AddUserWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -92,7 +104,7 @@ class _AddUserWidgetState extends State<AddUserWidget> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.all(12.0),
+                                padding: const EdgeInsets.all(10.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
                                   focusColor: Colors.transparent,
@@ -148,41 +160,474 @@ class _AddUserWidgetState extends State<AddUserWidget> {
                                     children: [
                                       Padding(
                                         padding: const EdgeInsetsDirectional.fromSTEB(
-                                            10.0, 20.0, 10.0, 20.0),
+                                            20.0, 20.0, 10.0, 20.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 0.0, 0.0, 20.0),
-                                                  child: AuthUserStreamWidget(
-                                                    builder: (context) =>
-                                                        Container(
-                                                      width: 120.0,
-                                                      height: 120.0,
-                                                      clipBehavior:
-                                                          Clip.antiAlias,
-                                                      decoration: const BoxDecoration(
-                                                        shape: BoxShape.circle,
+                                            if (currentUserReference?.id !=
+                                                    null &&
+                                                currentUserReference?.id != '')
+                                              Expanded(
+                                                child: InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    context.pushNamed(
+                                                        'UserProfile');
+                                                  },
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    20.0),
+                                                        child:
+                                                            AuthUserStreamWidget(
+                                                          builder: (context) =>
+                                                              Container(
+                                                            width: 120.0,
+                                                            height: 120.0,
+                                                            clipBehavior:
+                                                                Clip.antiAlias,
+                                                            decoration:
+                                                                const BoxDecoration(
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                            ),
+                                                            child:
+                                                                Image.network(
+                                                              valueOrDefault<
+                                                                  String>(
+                                                                currentUserPhoto,
+                                                                'https://freesvg.org/img/abstract-user-flat-4.png',
+                                                              ),
+                                                              fit: BoxFit.cover,
+                                                            ),
+                                                          ),
+                                                        ),
                                                       ),
-                                                      child: Image.network(
-                                                        currentUserPhoto,
-                                                        fit: BoxFit.cover,
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    10.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child:
+                                                            AuthUserStreamWidget(
+                                                          builder: (context) =>
+                                                              InkWell(
+                                                            splashColor: Colors
+                                                                .transparent,
+                                                            focusColor: Colors
+                                                                .transparent,
+                                                            hoverColor: Colors
+                                                                .transparent,
+                                                            highlightColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            onTap: () async {
+                                                              context.pushNamed(
+                                                                  'UserProfile');
+                                                            },
+                                                            child: Text(
+                                                              valueOrDefault<
+                                                                  String>(
+                                                                'Welcome ${valueOrDefault<String>(
+                                                                  currentUserDisplayName,
+                                                                  'def',
+                                                                )}',
+                                                                'def',
+                                                              ),
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Inter',
+                                                                    fontSize:
+                                                                        18.0,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                          ],
+                                        ),
+                                      ),
+                                      if ((currentUserDocument?.role
+                                                  .toList() ??
+                                              [])
+                                          .contains('Admin'))
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  20.0, 20.0, 20.0, 20.0),
+                                          child: AuthUserStreamWidget(
+                                            builder: (context) => InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                context.pushNamed('Products');
+                                              },
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Expanded(
+                                                    child: Align(
+                                                      alignment:
+                                                          const AlignmentDirectional(
+                                                              -1.0, 0.0),
+                                                      child:
+                                                          FlutterFlowDropDown<
+                                                              String>(
+                                                        controller: _model
+                                                                .dprAdminValueController ??=
+                                                            FormFieldController<
+                                                                String>(null),
+                                                        options: const [
+                                                          'Manage Products',
+                                                          'Manage Providers',
+                                                          'Manage Users',
+                                                          'Manage Collections',
+                                                          'Manage Orders',
+                                                          'Manage Categories',
+                                                          'Manage Contact'
+                                                        ],
+                                                        onChanged: (val) async {
+                                                          safeSetState(() =>
+                                                              _model.dprAdminValue =
+                                                                  val);
+                                                          if (_model
+                                                                  .dprAdminValue ==
+                                                              'Manage Products') {
+                                                            context.pushNamed(
+                                                                'ProductsAdmin');
+
+                                                            return;
+                                                          } else {
+                                                            if (_model
+                                                                    .dprAdminValue ==
+                                                                'Manage Providers') {
+                                                              context.pushNamed(
+                                                                  'ProvidersAdmin');
+
+                                                              return;
+                                                            } else {
+                                                              if (_model
+                                                                      .dprAdminValue ==
+                                                                  'Manage Users') {
+                                                                context.pushNamed(
+                                                                    'UsersAdmin');
+
+                                                                return;
+                                                              } else {
+                                                                if (_model
+                                                                        .dprAdminValue ==
+                                                                    'Manage Collections') {
+                                                                  context.pushNamed(
+                                                                      'CollectionsAdmin');
+
+                                                                  return;
+                                                                } else {
+                                                                  if (_model
+                                                                          .dprAdminValue ==
+                                                                      'Manage Orders') {
+                                                                    context.pushNamed(
+                                                                        'OrdersAdmin');
+                                                                  } else {
+                                                                    if (_model
+                                                                            .dprAdminValue ==
+                                                                        'Manage Categories') {
+                                                                      context.pushNamed(
+                                                                          'CategoriesAdmin');
+
+                                                                      return;
+                                                                    } else {
+                                                                      if (_model
+                                                                              .dprAdminValue ==
+                                                                          'Manage Contact') {
+                                                                        context.goNamed(
+                                                                            'ContactAdmin');
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        width:
+                                                            MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .width *
+                                                                1.0,
+                                                        height: 40.0,
+                                                        textStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                        hintText: 'Admin',
+                                                        icon: Icon(
+                                                          Icons
+                                                              .keyboard_arrow_down_rounded,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                          size: 24.0,
+                                                        ),
+                                                        fillColor: FlutterFlowTheme
+                                                                .of(context)
+                                                            .secondaryBackground,
+                                                        elevation: 2.0,
+                                                        borderColor:
+                                                            Colors.transparent,
+                                                        borderWidth: 0.0,
+                                                        borderRadius: 8.0,
+                                                        margin:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    12.0,
+                                                                    0.0,
+                                                                    12.0,
+                                                                    0.0),
+                                                        hidesUnderline: true,
+                                                        isOverButton: false,
+                                                        isSearchable: false,
+                                                        isMultiSelect: false,
                                                       ),
                                                     ),
                                                   ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            20.0, 10.0, 20.0, 10.0),
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            context.pushNamed('AboutUs');
+                                          },
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Expanded(
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Divider(
+                                                      thickness: 2.0,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .accent4,
+                                                    ),
+                                                  ],
                                                 ),
-                                                Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 10.0, 0.0, 0.0),
-                                                  child: InkWell(
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            20.0, 10.0, 20.0, 10.0),
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            context.pushNamed('AboutUs');
+                                          },
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  context.pushNamed('AboutUs');
+                                                },
+                                                child: Text(
+                                                  'About Us',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        fontSize: 24.0,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            20.0, 10.0, 20.0, 10.0),
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            context.pushNamed('AboutUs');
+                                          },
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  context.pushNamed(
+                                                      'TermsAndConditions');
+                                                },
+                                                child: Text(
+                                                  'Terms & Conditions',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        fontSize: 24.0,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      if (currentUserReference?.id == null ||
+                                          currentUserReference?.id == '')
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  20.0, 10.0, 20.0, 10.0),
+                                          child: InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              context.pushNamed('SignIn');
+                                            },
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    context.pushNamed('SignIn');
+                                                  },
+                                                  child: Text(
+                                                    'Sign In',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          fontSize: 24.0,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      if (currentUserReference?.id == null ||
+                                          currentUserReference?.id == '')
+                                        Expanded(
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    20.0, 10.0, 20.0, 10.0),
+                                            child: InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                context.pushNamed('SignUp');
+                                              },
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  InkWell(
                                                     splashColor:
                                                         Colors.transparent,
                                                     focusColor:
@@ -192,252 +637,26 @@ class _AddUserWidgetState extends State<AddUserWidget> {
                                                     highlightColor:
                                                         Colors.transparent,
                                                     onTap: () async {
-                                                      context.pushNamed(
-                                                          'UserProfile');
+                                                      context
+                                                          .pushNamed('SignUp');
                                                     },
                                                     child: Text(
-                                                      'Profile',
+                                                      'Sign Up',
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
                                                           .override(
                                                             fontFamily: 'Inter',
-                                                            fontSize: 20.0,
+                                                            fontSize: 24.0,
                                                             letterSpacing: 0.0,
                                                           ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            10.0, 20.0, 10.0, 20.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                context.pushNamed('Home');
-                                              },
-                                              child: Text(
-                                                'Home',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          fontSize: 20.0,
-                                                          letterSpacing: 0.0,
-                                                        ),
+                                                ],
                                               ),
                                             ),
-                                          ],
+                                          ),
                                         ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            10.0, 20.0, 10.0, 20.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                context.pushNamed('Products');
-                                              },
-                                              child: Text(
-                                                'Products',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          fontSize: 20.0,
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            10.0, 20.0, 10.0, 20.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                context
-                                                    .pushNamed('Collections');
-                                              },
-                                              child: Text(
-                                                'Collections',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          fontSize: 20.0,
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            10.0, 20.0, 10.0, 20.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                context.pushNamed('ContactUs');
-                                              },
-                                              child: Text(
-                                                'Contact',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          fontSize: 20.0,
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            10.0, 20.0, 10.0, 20.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                context.pushNamed('AboutUs');
-                                              },
-                                              child: Text(
-                                                'About Us',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          fontSize: 20.0,
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            10.0, 20.0, 10.0, 20.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                context.pushNamed('SignIn');
-                                              },
-                                              child: Text(
-                                                'Sign In',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          fontSize: 20.0,
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            10.0, 20.0, 10.0, 20.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                context.pushNamed('SignUp');
-                                              },
-                                              child: Text(
-                                                'Sign Up',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          fontSize: 20.0,
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
                                     ],
                                   ),
                                 ),
@@ -453,95 +672,205 @@ class _AddUserWidgetState extends State<AddUserWidget> {
             ),
           ),
         ),
-        appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primary,
-          automaticallyImplyLeading: false,
-          title: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Align(
-                    alignment: const AlignmentDirectional(0.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 10.0),
-                            child: ClipRRect(
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(100.0),
+          child: AppBar(
+            backgroundColor: FlutterFlowTheme.of(context).primary,
+            automaticallyImplyLeading: false,
+            actions: const [],
+            flexibleSpace: FlexibleSpaceBar(
+              title: Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 14.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: 60.0,
+                            height: 40.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context).secondary,
                               borderRadius: BorderRadius.circular(8.0),
-                              child: Image.network(
-                                'https://firebasestorage.googleapis.com/v0/b/tiendaanime-9e7dc.appspot.com/o/icons8-anime-64.png?alt=media&token=480352f8-086a-4958-b26e-9ae1f9c0fb8c',
-                                height:
-                                    MediaQuery.sizeOf(context).height * 0.06,
-                                fit: BoxFit.cover,
+                            ),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                context.safePop();
+                              },
+                              child: const Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.arrow_back,
+                                    color: Colors.white,
+                                    size: 24.0,
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                        ),
-                        Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                5.0, 0.0, 0.0, 0.0),
-                            child: Text(
-                              'GeekCo',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Roboto',
-                                    fontSize: 24.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                            ),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: Image.network(
+                                  'https://firebasestorage.googleapis.com/v0/b/tiendaanime-9e7dc.appspot.com/o/icons8-anime-64.png?alt=media&token=480352f8-086a-4958-b26e-9ae1f9c0fb8c',
+                                  width: 50.0,
+                                  height: 50.0,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Text(
+                                'GeekCo',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Inter',
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Align(
-                    alignment: const AlignmentDirectional(0.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            scaffoldKey.currentState!.openDrawer();
-                          },
-                          child: Icon(
-                            Icons.menu_sharp,
-                            color: FlutterFlowTheme.of(context).primaryText,
-                            size: 30.0,
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Align(
+                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                child: Stack(
+                                  alignment: const AlignmentDirectional(1.0, -1.0),
+                                  children: [
+                                    Align(
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          context.pushNamed('Cart');
+                                        },
+                                        child: Icon(
+                                          Icons.shopping_cart,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                          size: 30.0,
+                                        ),
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
+                                      child: StreamBuilder<List<CartRecord>>(
+                                        stream: queryCartRecord(
+                                          queryBuilder: (cartRecord) =>
+                                              cartRecord.where(
+                                            'user',
+                                            isEqualTo: currentUserReference,
+                                          ),
+                                        ),
+                                        builder: (context, snapshot) {
+                                          // Customize what your widget looks like when it's loading.
+                                          if (!snapshot.hasData) {
+                                            return Center(
+                                              child: SizedBox(
+                                                width: 50.0,
+                                                height: 50.0,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  valueColor:
+                                                      AlwaysStoppedAnimation<
+                                                          Color>(
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                          List<CartRecord>
+                                              containerCartRecordList =
+                                              snapshot.data!;
+
+                                          return Container(
+                                            width: 15.0,
+                                            height: 15.0,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .error,
+                                              shape: BoxShape.circle,
+                                            ),
+                                            alignment:
+                                                const AlignmentDirectional(0.0, 0.0),
+                                            child: Align(
+                                              alignment: const AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: Text(
+                                                valueOrDefault<String>(
+                                                  containerCartRecordList.length
+                                                      .toString(),
+                                                  '0',
+                                                ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          color: Colors.white,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  scaffoldKey.currentState!.openDrawer();
+                                },
+                                child: Icon(
+                                  Icons.menu,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  size: 30.0,
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ],
+              centerTitle: true,
+              expandedTitleScale: 1.0,
+            ),
+            elevation: 2.0,
           ),
-          actions: const [],
-          centerTitle: false,
-          elevation: 2.0,
         ),
         body: SafeArea(
           top: true,

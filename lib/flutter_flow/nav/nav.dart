@@ -74,13 +74,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const NavBarPage() : const UsersAdminWidget(),
+          appStateNotifier.loggedIn ? const NavBarPage() : const SignUpWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? const NavBarPage() : const UsersAdminWidget(),
+              appStateNotifier.loggedIn ? const NavBarPage() : const SignUpWidget(),
         ),
         FFRoute(
           name: 'SignUp',
@@ -111,18 +111,22 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'Collections',
           path: '/collections',
-          builder: (context, params) => const NavBarPage(
-            initialPage: '',
-            page: CollectionsWidget(),
-          ),
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'Collections')
+              : const NavBarPage(
+                  initialPage: 'Collections',
+                  page: CollectionsWidget(),
+                ),
         ),
         FFRoute(
           name: 'Products',
           path: '/products',
-          builder: (context, params) => const NavBarPage(
-            initialPage: '',
-            page: ProductsWidget(),
-          ),
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'Products')
+              : const NavBarPage(
+                  initialPage: 'Products',
+                  page: ProductsWidget(),
+                ),
         ),
         FFRoute(
           name: 'BestSellers',
@@ -190,6 +194,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'UserProfile',
           path: '/userProfile',
+          requireAuth: true,
           builder: (context, params) => params.isEmpty
               ? const NavBarPage(initialPage: 'UserProfile')
               : const UserProfileWidget(),
@@ -197,38 +202,22 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'EditOrder',
           path: '/editOrder',
-          builder: (context, params) => const EditOrderWidget(),
+          builder: (context, params) => EditOrderWidget(
+            userRef: params.getParam(
+              'userRef',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['users'],
+            ),
+          ),
         ),
         FFRoute(
           name: 'OrdersHistory',
           path: '/ordersHistory',
+          requireAuth: true,
           builder: (context, params) => const NavBarPage(
             initialPage: '',
             page: OrdersHistoryWidget(),
-          ),
-        ),
-        FFRoute(
-          name: 'ManageAccount',
-          path: '/manageAccount',
-          builder: (context, params) => const NavBarPage(
-            initialPage: '',
-            page: ManageAccountWidget(),
-          ),
-        ),
-        FFRoute(
-          name: 'EditProfile',
-          path: '/editProfile',
-          builder: (context, params) => const NavBarPage(
-            initialPage: '',
-            page: EditProfileWidget(),
-          ),
-        ),
-        FFRoute(
-          name: 'Cart',
-          path: '/cart',
-          builder: (context, params) => const NavBarPage(
-            initialPage: '',
-            page: CartWidget(),
           ),
         ),
         FFRoute(
@@ -330,19 +319,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'AddProduct',
           path: '/addProduct',
-          builder: (context, params) => const AddProductWidget(),
-        ),
-        FFRoute(
-          name: 'EditProduct',
-          path: '/editProduct',
-          asyncParams: {
-            'paramProduct': getDoc(['product'], ProductRecord.fromSnapshot),
-          },
-          builder: (context, params) => EditProductWidget(
-            paramProduct: params.getParam(
-              'paramProduct',
-              ParamType.Document,
-            ),
+          builder: (context, params) => const NavBarPage(
+            initialPage: '',
+            page: AddProductWidget(),
           ),
         ),
         FFRoute(
@@ -391,6 +370,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'WishList',
           path: '/wishList',
+          requireAuth: true,
           builder: (context, params) => const NavBarPage(
             initialPage: '',
             page: WishListWidget(),
@@ -414,9 +394,81 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'AddProductCopy',
-          path: '/addProductCopy',
-          builder: (context, params) => const AddProductCopyWidget(),
+          name: 'EditProduct1',
+          path: '/editProduct1',
+          requireAuth: true,
+          asyncParams: {
+            'paramProduct': getDoc(['product'], ProductRecord.fromSnapshot),
+          },
+          builder: (context, params) => EditProduct1Widget(
+            paramProduct: params.getParam(
+              'paramProduct',
+              ParamType.Document,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'Cart',
+          path: '/cart',
+          requireAuth: true,
+          builder: (context, params) => NavBarPage(
+            initialPage: '',
+            page: CartWidget(
+              isSingleProduct: params.getParam(
+                'isSingleProduct',
+                ParamType.bool,
+              ),
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'CheckOut',
+          path: '/checkOut',
+          requireAuth: true,
+          asyncParams: {
+            'cartList': getDocList(['Cart'], CartRecord.fromSnapshot),
+          },
+          builder: (context, params) => NavBarPage(
+            initialPage: '',
+            page: CheckOutWidget(
+              cartList: params.getParam<CartRecord>(
+                'cartList',
+                ParamType.Document,
+                isList: true,
+              ),
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'ChangeMyPassword',
+          path: '/changeMyPassword',
+          requireAuth: true,
+          builder: (context, params) => const ChangeMyPasswordWidget(),
+        ),
+        FFRoute(
+          name: 'EditProfile',
+          path: '/editProfile',
+          requireAuth: true,
+          builder: (context, params) => const NavBarPage(
+            initialPage: '',
+            page: EditProfileWidget(),
+          ),
+        ),
+        FFRoute(
+          name: 'ContactAdmin',
+          path: '/contactAdmin',
+          builder: (context, params) => const NavBarPage(
+            initialPage: '',
+            page: ContactAdminWidget(),
+          ),
+        ),
+        FFRoute(
+          name: 'TermsAndConditions',
+          path: '/termsAndConditions',
+          builder: (context, params) => const NavBarPage(
+            initialPage: '',
+            page: TermsAndConditionsWidget(),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -536,6 +588,7 @@ class FFParameters {
     ParamType type, {
     bool isList = false,
     List<String>? collectionNamePath,
+    StructBuilder<T>? structBuilder,
   }) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -554,6 +607,7 @@ class FFParameters {
       type,
       isList,
       collectionNamePath: collectionNamePath,
+      structBuilder: structBuilder,
     );
   }
 }
@@ -587,7 +641,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/usersAdmin';
+            return '/signUp';
           }
           return null;
         },

@@ -118,6 +118,9 @@ class AddUserModel extends FlutterFlowModel<AddUserWidget> {
   // State field(s) for DropDown widget.
   List<String>? dropDownValue2;
   FormFieldController<List<String>>? dropDownValueController2;
+  // State field(s) for dprAdmin widget.
+  String? dprAdminValue;
+  FormFieldController<String>? dprAdminValueController;
 
   @override
   void initState(BuildContext context) {

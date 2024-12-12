@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -21,32 +20,32 @@ class CartRecord extends FirestoreRecord {
   DocumentReference? get user => _user;
   bool hasUser() => _user != null;
 
-  // "subtotal" field.
-  double? _subtotal;
-  double get subtotal => _subtotal ?? 0.0;
-  bool hasSubtotal() => _subtotal != null;
-
-  // "producto" field.
-  DocumentReference? _producto;
-  DocumentReference? get producto => _producto;
-  bool hasProducto() => _producto != null;
-
-  // "productos" field.
-  List<String>? _productos;
-  List<String> get productos => _productos ?? const [];
-  bool hasProductos() => _productos != null;
-
   // "quantity" field.
   int? _quantity;
   int get quantity => _quantity ?? 0;
   bool hasQuantity() => _quantity != null;
 
+  // "product" field.
+  DocumentReference? _product;
+  DocumentReference? get product => _product;
+  bool hasProduct() => _product != null;
+
+  // "subTotal" field.
+  double? _subTotal;
+  double get subTotal => _subTotal ?? 0.0;
+  bool hasSubTotal() => _subTotal != null;
+
+  // "productwithIVA" field.
+  double? _productwithIVA;
+  double get productwithIVA => _productwithIVA ?? 0.0;
+  bool hasProductwithIVA() => _productwithIVA != null;
+
   void _initializeFields() {
     _user = snapshotData['user'] as DocumentReference?;
-    _subtotal = castToType<double>(snapshotData['subtotal']);
-    _producto = snapshotData['producto'] as DocumentReference?;
-    _productos = getDataList(snapshotData['productos']);
     _quantity = castToType<int>(snapshotData['quantity']);
+    _product = snapshotData['product'] as DocumentReference?;
+    _subTotal = castToType<double>(snapshotData['subTotal']);
+    _productwithIVA = castToType<double>(snapshotData['productwithIVA']);
   }
 
   static CollectionReference get collection =>
@@ -84,16 +83,18 @@ class CartRecord extends FirestoreRecord {
 
 Map<String, dynamic> createCartRecordData({
   DocumentReference? user,
-  double? subtotal,
-  DocumentReference? producto,
   int? quantity,
+  DocumentReference? product,
+  double? subTotal,
+  double? productwithIVA,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'user': user,
-      'subtotal': subtotal,
-      'producto': producto,
       'quantity': quantity,
+      'product': product,
+      'subTotal': subTotal,
+      'productwithIVA': productwithIVA,
     }.withoutNulls,
   );
 
@@ -105,17 +106,16 @@ class CartRecordDocumentEquality implements Equality<CartRecord> {
 
   @override
   bool equals(CartRecord? e1, CartRecord? e2) {
-    const listEquality = ListEquality();
     return e1?.user == e2?.user &&
-        e1?.subtotal == e2?.subtotal &&
-        e1?.producto == e2?.producto &&
-        listEquality.equals(e1?.productos, e2?.productos) &&
-        e1?.quantity == e2?.quantity;
+        e1?.quantity == e2?.quantity &&
+        e1?.product == e2?.product &&
+        e1?.subTotal == e2?.subTotal &&
+        e1?.productwithIVA == e2?.productwithIVA;
   }
 
   @override
   int hash(CartRecord? e) => const ListEquality()
-      .hash([e?.user, e?.subtotal, e?.producto, e?.productos, e?.quantity]);
+      .hash([e?.user, e?.quantity, e?.product, e?.subTotal, e?.productwithIVA]);
 
   @override
   bool isValidKey(Object? o) => o is CartRecord;

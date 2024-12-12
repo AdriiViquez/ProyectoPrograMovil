@@ -1,4 +1,5 @@
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/form_field_controller.dart';
 import 'sign_in_widget.dart' show SignInWidget;
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,9 @@ class SignInModel extends FlutterFlowModel<SignInWidget> {
   TextEditingController? txtPasswordTextController;
   late bool txtPasswordVisibility;
   String? Function(BuildContext, String?)? txtPasswordTextControllerValidator;
+  // State field(s) for dprAdmin widget.
+  String? dprAdminValue;
+  FormFieldController<String>? dprAdminValueController;
 
   @override
   void initState(BuildContext context) {

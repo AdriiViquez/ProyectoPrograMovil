@@ -1,4 +1,5 @@
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/form_field_controller.dart';
 import 'orders_history_widget.dart' show OrdersHistoryWidget;
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,9 @@ class OrdersHistoryModel extends FlutterFlowModel<OrdersHistoryWidget> {
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
+  // State field(s) for dprAdmin widget.
+  String? dprAdminValue;
+  FormFieldController<String>? dprAdminValueController;
 
   @override
   void initState(BuildContext context) {}

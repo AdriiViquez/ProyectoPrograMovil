@@ -8,6 +8,7 @@ import 'auth/firebase_auth/auth_util.dart';
 import 'backend/firebase/firebase_config.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'index.dart';
 
@@ -122,9 +123,11 @@ class _NavBarPageState extends State<NavBarPage> {
   @override
   Widget build(BuildContext context) {
     final tabs = {
+      'Products': const ProductsWidget(),
+      'Collections': const CollectionsWidget(),
       'Home': const HomeWidget(),
-      'ContactUs': const ContactUsWidget(),
       'UserProfile': const UserProfileWidget(),
+      'ContactUs': const ContactUsWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
@@ -149,17 +152,28 @@ class _NavBarPageState extends State<NavBarPage> {
         haptic: false,
         tabs: const [
           GButton(
+            icon: FontAwesomeIcons.shoppingBag,
+            text: '',
+            iconSize: 24.0,
+          ),
+          GButton(
+            icon: FontAwesomeIcons.microsoft,
+            text: '',
+            textStyle: TextStyle(),
+            iconSize: 24.0,
+          ),
+          GButton(
             icon: Icons.home,
             text: '',
             iconSize: 24.0,
           ),
           GButton(
-            icon: Icons.contact_support,
+            icon: Icons.person,
             text: '',
             iconSize: 24.0,
           ),
           GButton(
-            icon: Icons.person,
+            icon: Icons.support_agent,
             text: '',
             iconSize: 24.0,
           )

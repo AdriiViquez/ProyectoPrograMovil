@@ -45,6 +45,16 @@ class SalesRecord extends FirestoreRecord {
   DateTime? get saleDate => _saleDate;
   bool hasSaleDate() => _saleDate != null;
 
+  // "userRef" field.
+  DocumentReference? _userRef;
+  DocumentReference? get userRef => _userRef;
+  bool hasUserRef() => _userRef != null;
+
+  // "Status" field.
+  String? _status;
+  String get status => _status ?? '';
+  bool hasStatus() => _status != null;
+
   void _initializeFields() {
     _invoiceRef = snapshotData['invoiceRef'] as DocumentReference?;
     _productRef = snapshotData['productRef'] as DocumentReference?;
@@ -52,6 +62,8 @@ class SalesRecord extends FirestoreRecord {
     _price = castToType<double>(snapshotData['price']);
     _total = castToType<double>(snapshotData['total']);
     _saleDate = snapshotData['saleDate'] as DateTime?;
+    _userRef = snapshotData['userRef'] as DocumentReference?;
+    _status = snapshotData['Status'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -94,6 +106,8 @@ Map<String, dynamic> createSalesRecordData({
   double? price,
   double? total,
   DateTime? saleDate,
+  DocumentReference? userRef,
+  String? status,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -103,6 +117,8 @@ Map<String, dynamic> createSalesRecordData({
       'price': price,
       'total': total,
       'saleDate': saleDate,
+      'userRef': userRef,
+      'Status': status,
     }.withoutNulls,
   );
 
@@ -119,7 +135,9 @@ class SalesRecordDocumentEquality implements Equality<SalesRecord> {
         e1?.quantity == e2?.quantity &&
         e1?.price == e2?.price &&
         e1?.total == e2?.total &&
-        e1?.saleDate == e2?.saleDate;
+        e1?.saleDate == e2?.saleDate &&
+        e1?.userRef == e2?.userRef &&
+        e1?.status == e2?.status;
   }
 
   @override
@@ -129,7 +147,9 @@ class SalesRecordDocumentEquality implements Equality<SalesRecord> {
         e?.quantity,
         e?.price,
         e?.total,
-        e?.saleDate
+        e?.saleDate,
+        e?.userRef,
+        e?.status
       ]);
 
   @override

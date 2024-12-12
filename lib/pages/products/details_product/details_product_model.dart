@@ -1,5 +1,6 @@
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/form_field_controller.dart';
 import 'details_product_widget.dart' show DetailsProductWidget;
 import 'package:flutter/material.dart';
 
@@ -47,6 +48,18 @@ class DetailsProductModel extends FlutterFlowModel<DetailsProductWidget> {
 
   String isAdmin = 'Admin';
 
+  List<ProductRecord> listOfProducts = [];
+  void addToListOfProducts(ProductRecord item) => listOfProducts.add(item);
+  void removeFromListOfProducts(ProductRecord item) =>
+      listOfProducts.remove(item);
+  void removeAtIndexFromListOfProducts(int index) =>
+      listOfProducts.removeAt(index);
+  void insertAtIndexInListOfProducts(int index, ProductRecord item) =>
+      listOfProducts.insert(index, item);
+  void updateListOfProductsAtIndex(
+          int index, Function(ProductRecord) updateFn) =>
+      listOfProducts[index] = updateFn(listOfProducts[index]);
+
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for PageView widget.
@@ -57,8 +70,21 @@ class DetailsProductModel extends FlutterFlowModel<DetailsProductWidget> {
           pageViewController!.page != null
       ? pageViewController!.page!.round()
       : 0;
+  // Stores action output result for [Custom Action - processProductDatatoCart] action in Purchase widget.
+  ProductToCartStruct? productToCart2;
+  // Stores action output result for [Firestore Query - Query a collection] action in Purchase widget.
+  CartRecord? productExistsInCart2;
+  // Stores action output result for [Backend Call - Create Document] action in Purchase widget.
+  CartRecord? cartItem2;
+  // Stores action output result for [Custom Action - processProductDatatoCart] action in AddCar widget.
+  ProductToCartStruct? productToCart;
+  // Stores action output result for [Firestore Query - Query a collection] action in AddCar widget.
+  CartRecord? productExistsInCart;
   // Stores action output result for [Backend Call - Create Document] action in AddCar widget.
-  CartRecord? productoAgregado;
+  CartRecord? cartItem;
+  // State field(s) for dprAdmin widget.
+  String? dprAdminValue;
+  FormFieldController<String>? dprAdminValueController;
 
   @override
   void initState(BuildContext context) {}

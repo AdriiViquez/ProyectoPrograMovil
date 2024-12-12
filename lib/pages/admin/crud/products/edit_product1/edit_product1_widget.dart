@@ -10,37 +10,54 @@ import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
-import 'add_product_copy_model.dart';
-export 'add_product_copy_model.dart';
+import 'package:flutter/scheduler.dart';
+import 'edit_product1_model.dart';
+export 'edit_product1_model.dart';
 
-class AddProductCopyWidget extends StatefulWidget {
+class EditProduct1Widget extends StatefulWidget {
   /// this is the SignUp page for GeekCoCR
-  const AddProductCopyWidget({super.key});
+  const EditProduct1Widget({
+    super.key,
+    required this.paramProduct,
+  });
+
+  final ProductRecord? paramProduct;
 
   @override
-  State<AddProductCopyWidget> createState() => _AddProductCopyWidgetState();
+  State<EditProduct1Widget> createState() => _EditProduct1WidgetState();
 }
 
-class _AddProductCopyWidgetState extends State<AddProductCopyWidget> {
-  late AddProductCopyModel _model;
+class _EditProduct1WidgetState extends State<EditProduct1Widget> {
+  late EditProduct1Model _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => AddProductCopyModel());
+    _model = createModel(context, () => EditProduct1Model());
 
-    _model.txtProductNameTextController ??= TextEditingController();
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (!(currentUserDocument?.role.toList() ?? []).contains('Admin')) {
+        context.pushNamed('Home');
+      }
+    });
+
+    _model.txtProductNameTextController ??=
+        TextEditingController(text: widget.paramProduct?.name);
     _model.txtProductNameFocusNode ??= FocusNode();
 
-    _model.txtProductPriceTextController ??= TextEditingController();
+    _model.txtProductPriceTextController ??=
+        TextEditingController(text: widget.paramProduct?.price.toString());
     _model.txtProductPriceFocusNode ??= FocusNode();
 
-    _model.txtProductStockTextController ??= TextEditingController();
+    _model.txtProductStockTextController ??=
+        TextEditingController(text: widget.paramProduct?.quantity.toString());
     _model.txtProductStockFocusNode ??= FocusNode();
 
-    _model.txtProductDescriptionTextController ??= TextEditingController();
+    _model.txtProductDescriptionTextController ??=
+        TextEditingController(text: widget.paramProduct?.description);
     _model.txtProductDescriptionFocusNode ??= FocusNode();
 
     _model.txtColorTextController ??= TextEditingController();
@@ -57,7 +74,10 @@ class _AddProductCopyWidgetState extends State<AddProductCopyWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -86,7 +106,7 @@ class _AddProductCopyWidgetState extends State<AddProductCopyWidget> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.all(12.0),
+                                padding: const EdgeInsets.all(10.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
                                   focusColor: Colors.transparent,
@@ -142,41 +162,474 @@ class _AddProductCopyWidgetState extends State<AddProductCopyWidget> {
                                     children: [
                                       Padding(
                                         padding: const EdgeInsetsDirectional.fromSTEB(
-                                            10.0, 20.0, 10.0, 20.0),
+                                            20.0, 20.0, 10.0, 20.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 0.0, 0.0, 20.0),
-                                                  child: AuthUserStreamWidget(
-                                                    builder: (context) =>
-                                                        Container(
-                                                      width: 120.0,
-                                                      height: 120.0,
-                                                      clipBehavior:
-                                                          Clip.antiAlias,
-                                                      decoration: const BoxDecoration(
-                                                        shape: BoxShape.circle,
+                                            if (currentUserReference?.id !=
+                                                    null &&
+                                                currentUserReference?.id != '')
+                                              Expanded(
+                                                child: InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    context.pushNamed(
+                                                        'UserProfile');
+                                                  },
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    20.0),
+                                                        child:
+                                                            AuthUserStreamWidget(
+                                                          builder: (context) =>
+                                                              Container(
+                                                            width: 120.0,
+                                                            height: 120.0,
+                                                            clipBehavior:
+                                                                Clip.antiAlias,
+                                                            decoration:
+                                                                const BoxDecoration(
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                            ),
+                                                            child:
+                                                                Image.network(
+                                                              valueOrDefault<
+                                                                  String>(
+                                                                currentUserPhoto,
+                                                                'https://freesvg.org/img/abstract-user-flat-4.png',
+                                                              ),
+                                                              fit: BoxFit.cover,
+                                                            ),
+                                                          ),
+                                                        ),
                                                       ),
-                                                      child: Image.network(
-                                                        currentUserPhoto,
-                                                        fit: BoxFit.cover,
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    10.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child:
+                                                            AuthUserStreamWidget(
+                                                          builder: (context) =>
+                                                              InkWell(
+                                                            splashColor: Colors
+                                                                .transparent,
+                                                            focusColor: Colors
+                                                                .transparent,
+                                                            hoverColor: Colors
+                                                                .transparent,
+                                                            highlightColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            onTap: () async {
+                                                              context.pushNamed(
+                                                                  'UserProfile');
+                                                            },
+                                                            child: Text(
+                                                              valueOrDefault<
+                                                                  String>(
+                                                                'Welcome ${valueOrDefault<String>(
+                                                                  currentUserDisplayName,
+                                                                  'def',
+                                                                )}',
+                                                                'def',
+                                                              ),
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Inter',
+                                                                    fontSize:
+                                                                        18.0,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                          ],
+                                        ),
+                                      ),
+                                      if ((currentUserDocument?.role
+                                                  .toList() ??
+                                              [])
+                                          .contains('Admin'))
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  20.0, 20.0, 20.0, 20.0),
+                                          child: AuthUserStreamWidget(
+                                            builder: (context) => InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                context.pushNamed('Products');
+                                              },
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Expanded(
+                                                    child: Align(
+                                                      alignment:
+                                                          const AlignmentDirectional(
+                                                              -1.0, 0.0),
+                                                      child:
+                                                          FlutterFlowDropDown<
+                                                              String>(
+                                                        controller: _model
+                                                                .dprAdminValueController ??=
+                                                            FormFieldController<
+                                                                String>(null),
+                                                        options: const [
+                                                          'Manage Products',
+                                                          'Manage Providers',
+                                                          'Manage Users',
+                                                          'Manage Collections',
+                                                          'Manage Orders',
+                                                          'Manage Categories',
+                                                          'Manage Contact'
+                                                        ],
+                                                        onChanged: (val) async {
+                                                          safeSetState(() =>
+                                                              _model.dprAdminValue =
+                                                                  val);
+                                                          if (_model
+                                                                  .dprAdminValue ==
+                                                              'Manage Products') {
+                                                            context.pushNamed(
+                                                                'ProductsAdmin');
+
+                                                            return;
+                                                          } else {
+                                                            if (_model
+                                                                    .dprAdminValue ==
+                                                                'Manage Providers') {
+                                                              context.pushNamed(
+                                                                  'ProvidersAdmin');
+
+                                                              return;
+                                                            } else {
+                                                              if (_model
+                                                                      .dprAdminValue ==
+                                                                  'Manage Users') {
+                                                                context.pushNamed(
+                                                                    'UsersAdmin');
+
+                                                                return;
+                                                              } else {
+                                                                if (_model
+                                                                        .dprAdminValue ==
+                                                                    'Manage Collections') {
+                                                                  context.pushNamed(
+                                                                      'CollectionsAdmin');
+
+                                                                  return;
+                                                                } else {
+                                                                  if (_model
+                                                                          .dprAdminValue ==
+                                                                      'Manage Orders') {
+                                                                    context.pushNamed(
+                                                                        'OrdersAdmin');
+                                                                  } else {
+                                                                    if (_model
+                                                                            .dprAdminValue ==
+                                                                        'Manage Categories') {
+                                                                      context.pushNamed(
+                                                                          'CategoriesAdmin');
+
+                                                                      return;
+                                                                    } else {
+                                                                      if (_model
+                                                                              .dprAdminValue ==
+                                                                          'Manage Contact') {
+                                                                        context.goNamed(
+                                                                            'ContactAdmin');
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        width:
+                                                            MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .width *
+                                                                1.0,
+                                                        height: 40.0,
+                                                        textStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                        hintText: 'Admin',
+                                                        icon: Icon(
+                                                          Icons
+                                                              .keyboard_arrow_down_rounded,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                          size: 24.0,
+                                                        ),
+                                                        fillColor: FlutterFlowTheme
+                                                                .of(context)
+                                                            .secondaryBackground,
+                                                        elevation: 2.0,
+                                                        borderColor:
+                                                            Colors.transparent,
+                                                        borderWidth: 0.0,
+                                                        borderRadius: 8.0,
+                                                        margin:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    12.0,
+                                                                    0.0,
+                                                                    12.0,
+                                                                    0.0),
+                                                        hidesUnderline: true,
+                                                        isOverButton: false,
+                                                        isSearchable: false,
+                                                        isMultiSelect: false,
                                                       ),
                                                     ),
                                                   ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            20.0, 10.0, 20.0, 10.0),
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            context.pushNamed('AboutUs');
+                                          },
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Expanded(
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Divider(
+                                                      thickness: 2.0,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .accent4,
+                                                    ),
+                                                  ],
                                                 ),
-                                                Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 10.0, 0.0, 0.0),
-                                                  child: InkWell(
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            20.0, 10.0, 20.0, 10.0),
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            context.pushNamed('AboutUs');
+                                          },
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  context.pushNamed('AboutUs');
+                                                },
+                                                child: Text(
+                                                  'About Us',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        fontSize: 24.0,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            20.0, 10.0, 20.0, 10.0),
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            context.pushNamed('AboutUs');
+                                          },
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  context.pushNamed(
+                                                      'TermsAndConditions');
+                                                },
+                                                child: Text(
+                                                  'Terms & Conditions',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        fontSize: 24.0,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      if (currentUserReference?.id == null ||
+                                          currentUserReference?.id == '')
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  20.0, 10.0, 20.0, 10.0),
+                                          child: InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              context.pushNamed('SignIn');
+                                            },
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    context.pushNamed('SignIn');
+                                                  },
+                                                  child: Text(
+                                                    'Sign In',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          fontSize: 24.0,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      if (currentUserReference?.id == null ||
+                                          currentUserReference?.id == '')
+                                        Expanded(
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    20.0, 10.0, 20.0, 10.0),
+                                            child: InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                context.pushNamed('SignUp');
+                                              },
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  InkWell(
                                                     splashColor:
                                                         Colors.transparent,
                                                     focusColor:
@@ -186,252 +639,26 @@ class _AddProductCopyWidgetState extends State<AddProductCopyWidget> {
                                                     highlightColor:
                                                         Colors.transparent,
                                                     onTap: () async {
-                                                      context.pushNamed(
-                                                          'UserProfile');
+                                                      context
+                                                          .pushNamed('SignUp');
                                                     },
                                                     child: Text(
-                                                      'Profile',
+                                                      'Sign Up',
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
                                                           .override(
                                                             fontFamily: 'Inter',
-                                                            fontSize: 20.0,
+                                                            fontSize: 24.0,
                                                             letterSpacing: 0.0,
                                                           ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            10.0, 20.0, 10.0, 20.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                context.pushNamed('Home');
-                                              },
-                                              child: Text(
-                                                'Home',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          fontSize: 20.0,
-                                                          letterSpacing: 0.0,
-                                                        ),
+                                                ],
                                               ),
                                             ),
-                                          ],
+                                          ),
                                         ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            10.0, 20.0, 10.0, 20.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                context.pushNamed('Products');
-                                              },
-                                              child: Text(
-                                                'Products',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          fontSize: 20.0,
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            10.0, 20.0, 10.0, 20.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                context
-                                                    .pushNamed('Collections');
-                                              },
-                                              child: Text(
-                                                'Collections',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          fontSize: 20.0,
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            10.0, 20.0, 10.0, 20.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                context.pushNamed('ContactUs');
-                                              },
-                                              child: Text(
-                                                'Contact',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          fontSize: 20.0,
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            10.0, 20.0, 10.0, 20.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                context.pushNamed('AboutUs');
-                                              },
-                                              child: Text(
-                                                'About Us',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          fontSize: 20.0,
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            10.0, 20.0, 10.0, 20.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                context.pushNamed('SignIn');
-                                              },
-                                              child: Text(
-                                                'Sign In',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          fontSize: 20.0,
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            10.0, 20.0, 10.0, 20.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                context.pushNamed('SignUp');
-                                              },
-                                              child: Text(
-                                                'Sign Up',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          fontSize: 20.0,
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
                                     ],
                                   ),
                                 ),
@@ -447,95 +674,205 @@ class _AddProductCopyWidgetState extends State<AddProductCopyWidget> {
             ),
           ),
         ),
-        appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primary,
-          automaticallyImplyLeading: false,
-          title: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Align(
-                    alignment: const AlignmentDirectional(0.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 10.0),
-                            child: ClipRRect(
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(100.0),
+          child: AppBar(
+            backgroundColor: FlutterFlowTheme.of(context).primary,
+            automaticallyImplyLeading: false,
+            actions: const [],
+            flexibleSpace: FlexibleSpaceBar(
+              title: Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 14.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: 60.0,
+                            height: 40.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context).secondary,
                               borderRadius: BorderRadius.circular(8.0),
-                              child: Image.network(
-                                'https://firebasestorage.googleapis.com/v0/b/tiendaanime-9e7dc.appspot.com/o/icons8-anime-64.png?alt=media&token=480352f8-086a-4958-b26e-9ae1f9c0fb8c',
-                                height:
-                                    MediaQuery.sizeOf(context).height * 0.06,
-                                fit: BoxFit.cover,
+                            ),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                context.safePop();
+                              },
+                              child: const Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.arrow_back,
+                                    color: Colors.white,
+                                    size: 24.0,
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                        ),
-                        Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                5.0, 0.0, 0.0, 0.0),
-                            child: Text(
-                              'GeekCo',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Roboto',
-                                    fontSize: 24.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                            ),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: Image.network(
+                                  'https://firebasestorage.googleapis.com/v0/b/tiendaanime-9e7dc.appspot.com/o/icons8-anime-64.png?alt=media&token=480352f8-086a-4958-b26e-9ae1f9c0fb8c',
+                                  width: 50.0,
+                                  height: 50.0,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Text(
+                                'GeekCo',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Inter',
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Align(
-                    alignment: const AlignmentDirectional(0.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            scaffoldKey.currentState!.openDrawer();
-                          },
-                          child: Icon(
-                            Icons.menu_sharp,
-                            color: FlutterFlowTheme.of(context).primaryText,
-                            size: 30.0,
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Align(
+                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                child: Stack(
+                                  alignment: const AlignmentDirectional(1.0, -1.0),
+                                  children: [
+                                    Align(
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          context.pushNamed('Cart');
+                                        },
+                                        child: Icon(
+                                          Icons.shopping_cart,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                          size: 30.0,
+                                        ),
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
+                                      child: StreamBuilder<List<CartRecord>>(
+                                        stream: queryCartRecord(
+                                          queryBuilder: (cartRecord) =>
+                                              cartRecord.where(
+                                            'user',
+                                            isEqualTo: currentUserReference,
+                                          ),
+                                        ),
+                                        builder: (context, snapshot) {
+                                          // Customize what your widget looks like when it's loading.
+                                          if (!snapshot.hasData) {
+                                            return Center(
+                                              child: SizedBox(
+                                                width: 50.0,
+                                                height: 50.0,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  valueColor:
+                                                      AlwaysStoppedAnimation<
+                                                          Color>(
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                          List<CartRecord>
+                                              containerCartRecordList =
+                                              snapshot.data!;
+
+                                          return Container(
+                                            width: 15.0,
+                                            height: 15.0,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .error,
+                                              shape: BoxShape.circle,
+                                            ),
+                                            alignment:
+                                                const AlignmentDirectional(0.0, 0.0),
+                                            child: Align(
+                                              alignment: const AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: Text(
+                                                valueOrDefault<String>(
+                                                  containerCartRecordList.length
+                                                      .toString(),
+                                                  '0',
+                                                ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          color: Colors.white,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  scaffoldKey.currentState!.openDrawer();
+                                },
+                                child: Icon(
+                                  Icons.menu,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  size: 30.0,
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ],
+              centerTitle: true,
+              expandedTitleScale: 1.0,
+            ),
+            elevation: 2.0,
           ),
-          actions: const [],
-          centerTitle: false,
-          elevation: 2.0,
         ),
         body: SafeArea(
           top: true,
@@ -555,7 +892,7 @@ class _AddProductCopyWidgetState extends State<AddProductCopyWidget> {
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 5.0),
                         child: Text(
-                          'Add Product',
+                          'Edit Product',
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Roboto',
@@ -1180,58 +1517,131 @@ class _AddProductCopyWidgetState extends State<AddProductCopyWidget> {
                                           ],
                                         ),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            20.0, 0.0, 20.0, 10.0),
-                                        child: Builder(
-                                          builder: (context) {
-                                            final images = _model
-                                                .uploadedFileUrls
-                                                .map((e) => e)
-                                                .toList();
+                                      if ((_model
+                                              .uploadedFileUrls.isNotEmpty) ==
+                                          true)
+                                        Align(
+                                          alignment:
+                                              const AlignmentDirectional(1.0, 1.0),
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    20.0, 0.0, 20.0, 10.0),
+                                            child: Builder(
+                                              builder: (context) {
+                                                final images = _model
+                                                    .uploadedFileUrls
+                                                    .map((e) => e)
+                                                    .toList();
 
-                                            return SingleChildScrollView(
-                                              scrollDirection: Axis.horizontal,
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children:
-                                                    List.generate(images.length,
+                                                return SingleChildScrollView(
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: List.generate(
+                                                        images.length,
                                                         (imagesIndex) {
-                                                  final imagesItem =
-                                                      images[imagesIndex];
-                                                  return Stack(
-                                                    alignment:
-                                                        const AlignmentDirectional(
-                                                            1.0, -1.0),
-                                                    children: [
-                                                      Align(
+                                                      final imagesItem =
+                                                          images[imagesIndex];
+                                                      return Stack(
                                                         alignment:
                                                             const AlignmentDirectional(
-                                                                0.0, 0.0),
-                                                        child: ClipRRect(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8.0),
-                                                          child:
-                                                              Image.network(
-                                                            imagesItem,
-                                                            width: 100.0,
-                                                            height: 100.0,
-                                                            fit: BoxFit.cover,
+                                                                1.0, -1.0),
+                                                        children: [
+                                                          Align(
+                                                            alignment:
+                                                                const AlignmentDirectional(
+                                                                    0.0, 0.0),
+                                                            child: ClipRRect(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8.0),
+                                                              child: Image
+                                                                  .network(
+                                                                imagesItem,
+                                                                width: 100.0,
+                                                                height: 100.0,
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    }).divide(
+                                                        const SizedBox(width: 4.0)),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      if ((_model
+                                              .uploadedFileUrls.isNotEmpty) ==
+                                          false)
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  20.0, 0.0, 20.0, 10.0),
+                                          child: Builder(
+                                            builder: (context) {
+                                              final image = widget
+                                                      .paramProduct?.images
+                                                      .toList() ??
+                                                  [];
+
+                                              return SingleChildScrollView(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: List.generate(
+                                                      image.length,
+                                                      (imageIndex) {
+                                                    final imageItem =
+                                                        image[imageIndex];
+                                                    return Stack(
+                                                      alignment:
+                                                          const AlignmentDirectional(
+                                                              1.0, -1.0),
+                                                      children: [
+                                                        Align(
+                                                          alignment:
+                                                              const AlignmentDirectional(
+                                                                  0.0, 0.0),
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8.0),
+                                                            child:
+                                                                Image.network(
+                                                              imageItem,
+                                                              width: 100.0,
+                                                              height: 100.0,
+                                                              fit: BoxFit
+                                                                  .cover,
+                                                            ),
                                                           ),
                                                         ),
-                                                      ),
-                                                    ],
-                                                  );
-                                                }).divide(const SizedBox(width: 4.0)),
-                                              ),
-                                            );
-                                          },
+                                                      ],
+                                                    );
+                                                  }).divide(
+                                                      const SizedBox(width: 4.0)),
+                                                ),
+                                              );
+                                            },
+                                          ),
                                         ),
-                                      ),
                                       Padding(
                                         padding: const EdgeInsetsDirectional.fromSTEB(
                                             20.0, 0.0, 20.0, 10.0),
@@ -1246,7 +1656,9 @@ class _AddProductCopyWidgetState extends State<AddProductCopyWidget> {
                                                 controller: _model
                                                         .dprStatusValueController ??=
                                                     FormFieldController<String>(
-                                                  _model.dprStatusValue ??= '',
+                                                  _model.dprStatusValue ??=
+                                                      widget
+                                                          .paramProduct?.status,
                                                 ),
                                                 options: const ['Active', 'Inactive'],
                                                 onChanged: (val) =>
@@ -1332,7 +1744,10 @@ class _AddProductCopyWidgetState extends State<AddProductCopyWidget> {
                                                         FormFieldController<
                                                             String>(
                                                       _model.dprCollectionValue ??=
-                                                          '',
+                                                          widget
+                                                              .paramProduct
+                                                              ?.collectionRef
+                                                              ?.id,
                                                     ),
                                                     options: List<String>.from(
                                                         dprCollectionCollectionRecordList
@@ -1439,7 +1854,8 @@ class _AddProductCopyWidgetState extends State<AddProductCopyWidget> {
                                                         FormFieldController<
                                                             String>(
                                                       _model.dprCategoryValue1 ??=
-                                                          '',
+                                                          widget.paramProduct
+                                                              ?.categoryRef?.id,
                                                     ),
                                                     options: List<String>.from(
                                                         dprCategoryCategoryRecordList
@@ -1541,7 +1957,8 @@ class _AddProductCopyWidgetState extends State<AddProductCopyWidget> {
                                                         FormFieldController<
                                                             String>(
                                                       _model.dprCategoryValue2 ??=
-                                                          '',
+                                                          widget.paramProduct
+                                                              ?.providerRef?.id,
                                                     ),
                                                     options: List<String>.from(
                                                         dprCategoryProviderRecordList
@@ -2100,28 +2517,6 @@ class _AddProductCopyWidgetState extends State<AddProductCopyWidget> {
                                                   _model.providers =
                                                       await queryProviderRecordOnce();
                                                   shouldSetState = true;
-                                                  if ((_model.uploadedFileUrls
-                                                          .isNotEmpty) ==
-                                                      false) {
-                                                    ScaffoldMessenger.of(
-                                                            context)
-                                                        .showSnackBar(
-                                                      SnackBar(
-                                                        content: Text(
-                                                          'Not images has been uploaded to the product',
-                                                          style: TextStyle(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primaryText,
-                                                          ),
-                                                        ),
-                                                        duration: const Duration(
-                                                            milliseconds: 4000),
-                                                        backgroundColor:
-                                                            const Color(0xFFED0C0C),
-                                                      ),
-                                                    );
-                                                  }
                                                   if (_model.dprStatusValue !=
                                                       '') {
                                                     if (_model
@@ -2170,12 +2565,10 @@ class _AddProductCopyWidgetState extends State<AddProductCopyWidget> {
                                                           shouldSetState =
                                                               true;
 
-                                                          var productRecordReference =
-                                                              ProductRecord
-                                                                  .collection
-                                                                  .doc();
-                                                          await productRecordReference
-                                                              .set({
+                                                          await widget
+                                                              .paramProduct!
+                                                              .reference
+                                                              .update({
                                                             ...createProductRecordData(
                                                               name: _model
                                                                   .txtProductNameTextController
@@ -2199,73 +2592,29 @@ class _AddProductCopyWidgetState extends State<AddProductCopyWidget> {
                                                                       .text),
                                                               collectionRef: _model
                                                                   .collectionRef,
-                                                              favorite: false,
+                                                              favorite: widget
+                                                                  .paramProduct
+                                                                  ?.favorite,
+                                                              sells: widget
+                                                                  .paramProduct
+                                                                  ?.sells,
                                                             ),
                                                             ...mapToFirestore(
                                                               {
-                                                                'images': _model
-                                                                    .uploadedFileUrls,
-                                                                'sizes': _model
-                                                                    .selectedSizes,
-                                                                'color': _model
-                                                                    .colorsList,
+                                                                'images': (_model
+                                                                            .uploadedFileUrls.isNotEmpty) ==
+                                                                        false
+                                                                    ? widget
+                                                                        .paramProduct
+                                                                        ?.images
+                                                                    : _model
+                                                                        .uploadedFileUrls,
                                                               },
                                                             ),
                                                           });
-                                                          _model.savedDocument =
-                                                              ProductRecord
-                                                                  .getDocumentFromData({
-                                                            ...createProductRecordData(
-                                                              name: _model
-                                                                  .txtProductNameTextController
-                                                                  .text,
-                                                              description: _model
-                                                                  .txtProductDescriptionTextController
-                                                                  .text,
-                                                              price: double
-                                                                  .tryParse(_model
-                                                                      .txtProductPriceTextController
-                                                                      .text),
-                                                              categoryRef: _model
-                                                                  .categoryRef,
-                                                              status: _model
-                                                                  .dprStatusValue,
-                                                              providerRef: _model
-                                                                  .providerRef,
-                                                              quantity: int
-                                                                  .tryParse(_model
-                                                                      .txtProductStockTextController
-                                                                      .text),
-                                                              collectionRef: _model
-                                                                  .collectionRef,
-                                                              favorite: false,
-                                                            ),
-                                                            ...mapToFirestore(
-                                                              {
-                                                                'images': _model
-                                                                    .uploadedFileUrls,
-                                                                'sizes': _model
-                                                                    .selectedSizes,
-                                                                'color': _model
-                                                                    .colorsList,
-                                                              },
-                                                            ),
-                                                          }, productRecordReference);
-                                                          shouldSetState =
-                                                              true;
-                                                          if (_model
-                                                                  .savedDocument
-                                                                  ?.reference !=
-                                                              null) {
-                                                            context.pushNamed(
-                                                                'ProductsAdmin');
-                                                          } else {
-                                                            if (shouldSetState) {
-                                                              safeSetState(
-                                                                  () {});
-                                                            }
-                                                            return;
-                                                          }
+
+                                                          context.pushNamed(
+                                                              'ProductsAdmin');
                                                         } else {
                                                           ScaffoldMessenger.of(
                                                                   context)
@@ -2390,7 +2739,7 @@ class _AddProductCopyWidgetState extends State<AddProductCopyWidget> {
                                                               0.0, 0.0),
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .secondary,
+                                                      .accent1,
                                                   textStyle: FlutterFlowTheme
                                                           .of(context)
                                                       .displayLarge
